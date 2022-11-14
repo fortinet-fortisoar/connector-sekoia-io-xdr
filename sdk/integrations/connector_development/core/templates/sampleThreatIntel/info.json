@@ -1,0 +1,213 @@
+{
+    "TEMPLATE_NOTE1": "--ADD CONNECTOR METADATA HERE--",
+    "name": "sampleThreatIntel",
+    "version": "1.0.0",
+    "label": "Threat Intel",
+    "category": "Threat Intel",
+    "description": "A base template for building connectors of your own",
+    "TEMPLATE_NOTE2": "--REQUIRES A FILE WITH THE SAME NAME UNDER THE images FOLDER--",
+    "icon_small_name": "connector_logo_small.png",
+    "icon_large_name": "connector_logo_large.png",
+    "TEMPLATE_NOTE3": "--ADD CONFIGURATION FIELDS REQUIRED FOR SERVER AUTHENTICATION--",
+    "configuration": {
+        "fields": [
+            {
+                "title": "Server FQHN",
+                "type": "string",
+                "formType": "text",
+                "name": "server_fqhn",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+            },
+            {
+                "title": "Server Port",
+                "type": "string",
+                "formType": "text",
+                "name": "port",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "defaultValue": "443"
+            },
+            {
+                "title": "Username",
+                "type": "string",
+                "formType": "text",
+                "name": "username",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+            },
+            {
+                "title": "Password",
+                "type": "string",
+                "formType": "password",
+                "name": "password",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+            },
+            {
+                "title": "Protocol",
+                "type": "string",
+                "formType": "select",
+                "name": "protocol",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "options": [
+                    "HTTP",
+                    "HTTPS"
+                ]
+            },
+            {
+                "title": "Verify SSL",
+                "type": "boolean",
+                "formType": "checkbox",
+                "name": "verify_ssl",
+                "required": false,
+                "visible": true,
+                "editable": true,
+                "value": ""
+            }
+        ]
+    },
+    "TEMPLATE_NOTE4": "--ADD ACTIONS SUPPORTED FOR THIS CONNECTOR--",
+    "operations": [
+        {
+            "TEMPLATE_NOTE5": "--ADD OPERATION METADATA--",
+            "operation": "query_ip",
+            "title": "Get IP Reputation",
+            "description": "Retrieves a report for the IP addresses submitted, to determine if they are suspicious.",
+            "enabled": true,
+            "category": "investigation",
+            "annotation": "ip_reputation",
+            "TEMPLATE_NOTE6": "--OUTPUT SCHEMA IS A SAMPLE RESPONSE FROM THIS CONNECTOR ACTION--",
+            "output_schema": {
+                "score": "",
+                "as_owner": "",
+                "asn": "",
+                "country": "",
+                "detected_downloaded_samples": "",
+                "detected_referrer_samples": "",
+                "detected_urls": ""
+            },
+            "TEMPLATE_NOTE7": "--PARAMETERS FOR THIS OPERATION--",
+            "parameters": [
+                {
+                    "title": "IP",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "ip",
+                    "value": "",
+                    "description": "IP address for which you want to retrieve a report."
+                }
+            ]
+        },
+        {
+            "operation": "query_domain",
+            "title": "Get Domain Reputation",
+            "description": "Retrieves a report for the domains submitted, to determine if they are suspicious.",
+            "category": "investigation",
+            "annotation": "domain_reputation",
+            "output_schema": {
+                "score": "",
+                "categories": "",
+                "domain_siblings": [],
+                "aggregate": "",
+                "detected_downloaded_samples": "",
+                "undetected_downloaded_samples": "",
+                "detected_urls": "",
+                "subdomains": "",
+                "whois": "",
+                "whois_timestamp": "",
+                "msg": ""
+            },
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Domain",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "domain",
+                    "value": "",
+                    "description": "Domain name for which you want to retrieve a report."
+                }
+            ]
+        },
+        {
+            "operation": "query_url",
+            "title": "Get URL Reputation",
+            "description": "Retrieves a report for the URL submitted, to determine if they are suspicious.",
+            "category": "investigation",
+            "annotation": "url_reputation",
+            "output_schema": {
+                "score": "",
+                "permalink": "",
+                "aggregate": "",
+                "positives": "",
+                "total": "",
+                "resource": "",
+                "scan_date": "",
+                "scan_id": "",
+                "url": "",
+                "msg": "",
+                "scans": {}
+            },
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "URL",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "url",
+                    "value": "",
+                    "description": "URL for which you want to retrieve a report."
+                }
+            ]
+        },
+        {
+            "operation": "query_file_reputation",
+            "title": "Get File Reputation",
+            "description": "Retrieves a report for the file that you have submitted using file hash.",
+            "category": "investigation",
+            "annotation": "query_file_reputation",
+            "output_schema": {
+                "score": "",
+                "permalink": "",
+                "aggregate": "",
+                "positives": "",
+                "resource": "",
+                "scan_date": "",
+                "scan_id": "",
+                "msg": "",
+                "scans": {}
+            },
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "File Hash",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "file_hash",
+                    "value": "",
+                    "description": "File Hash of the file for which you want to retrieve a report."
+                }
+            ]
+        }
+    ],
+    "forked_from": false
+}

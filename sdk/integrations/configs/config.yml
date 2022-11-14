@@ -1,0 +1,52 @@
+rabbitmq_cyops:
+  exchange:
+    - exchangeName: 'dexchange.cyops.postman.{{self_id}}'
+      exchangeType: topic
+      exchangeOptions: { durable: true, passive: false, autoDelete: false, internal: false }
+
+  queues:
+    - queueName: 'queue.postman.connectorexecution.remoterequest.{{self_id}}'
+      exchangeName: 'dexchange.cyops.postman.{{self_id}}'
+      type: integration
+      callbackFunction: receiveRemoteConnectorExecutionRequest
+      routingKey: 'route.postman.connectorexecution.remoterequest.{{self_id}}'
+      queueOptions: { passive: false, durable: true, exclusive: false, autoDelete: false }
+    - queueName: 'queue.postman.connectorinstruction.remoterequest.{{self_id}}'
+      exchangeName: 'dexchange.cyops.postman.{{self_id}}'
+      type: integration
+      callbackFunction: receiveRemoteConnectorInstructionRequest
+      routingKey: 'route.postman.connectorinstruction.remoterequest.{{self_id}}'
+      queueOptions: { passive: false, durable: true, exclusive: false, autoDelete: false }
+    - queueName: 'queue.postman.instanceupgrade.remoterequest.{{self_id}}'
+      exchangeName: 'dexchange.cyops.postman.{{self_id}}'
+      type: integration
+      callbackFunction: receiveRemoteInstanceUpdateRequest
+      routingKey: 'route.postman.instanceupgrade.remoterequest.{{self_id}}'
+      queueOptions: { passive: false, durable: false, exclusive: false, autoDelete: false }
+    - queueName: 'queue.postman.chapi.remoteresponse.{{self_id}}'
+      exchangeName: 'dexchange.cyops.postman.{{self_id}}'
+      type: integration
+      callbackFunction: receiveRemoteCHAPIResponse
+      routingKey: 'route.postman.chapi.remoteresponse.{{self_id}}'
+      queueOptions: { passive: false, durable: true, exclusive: false, autoDelete: false }
+
+  peerPublishAction:
+    receiveRemoteConnectorExecutionRequest:
+      exchangeName: 'dexchange.cyops.postman.{{dest_id}}'
+      routingKey: 'route.postman.connectorexecution.remoterequest.{{dest_id}}'
+      onFailure:
+        replay: yes
+        preserveSequence: no
+    receiveRemoteConnectorInstructionRequest:
+      exchangeName: 'dexchange.cyops.postman.{{dest_id}}'
+      routingKey: 'route.postman.connectorinstruction.remoterequest.{{dest_id}}'
+      onFailure:
+        replay: yes
+        preserveSequence: no
+    receiveRemoteInstanceUpgradeRequest:
+      exchangeName: 'dexchange.cyops.postman.{{dest_id}}'
+      routingKey: 'route.postman.instanceupgrade.remoterequest.{{dest_id}}'
+      onFailure:
+        replay: yes
+        preserveSequence: no
+

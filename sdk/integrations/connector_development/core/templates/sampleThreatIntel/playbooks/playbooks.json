@@ -1,0 +1,124 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@type": "WorkflowCollection",
+      "name": "Sample - Threat Intel - 1.0.0",
+      "description": null,
+      "visible": true,
+      "image": null,
+      "uuid": "d2162198-cc58-4c35-9761-5f5366696bd2",
+      "id": 14,
+      "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+      "createDate": 1615355492,
+      "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+      "modifyDate": 1615355492,
+      "recordTags": [],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get IP Reputation",
+          "aliasName": null,
+          "tag": null,
+          "description": null,
+          "isActive": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1615355578,
+          "collection": "/api/3/workflow_collections/d2162198-cc58-4c35-9761-5f5366696bd2",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/f5cba69f-eb3e-40a3-9d7b-bbf2f564942b",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "bc9b6307-d437-4ac6-bd4d-8d1fbac1ac04",
+                "resources": [
+                  "indicators"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "indicators": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "top": "40",
+              "left": "40",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "f5cba69f-eb3e-40a3-9d7b-bbf2f564942b",
+              "id": 211
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get IP Reputation",
+              "description": null,
+              "arguments": {
+                "name": "Template Thread Intel Connector",
+                "config": "54da3ef7-e5f0-4e3a-9014-f285c373f75e",
+                "params": {
+                  "ip": "{{vars.input.records[0].value}}"
+                },
+                "version": "1.0.0",
+                "connector": "sampleThreatIntel",
+                "operation": "query_ip",
+                "operationTitle": "Get IP Reputation",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "160",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "cd175873-9c2f-458b-9873-2234e9392b4a",
+              "id": 212
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get IP Reputation",
+              "targetStep": "/api/3/workflow_steps/cd175873-9c2f-458b-9873-2234e9392b4a",
+              "sourceStep": "/api/3/workflow_steps/f5cba69f-eb3e-40a3-9d7b-bbf2f564942b",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "979f52b4-c7c6-4064-b531-c14a6fe7a496"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "a847b508-3a7a-4c89-b9df-efe27005008a",
+          "recordTags": [
+            "sampleThreatIntel"
+          ],
+          "id": 59,
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1615355511,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1615355577,
+          "owners": [],
+          "isPrivate": false
+        }
+      ]
+    }
+  ],
+  "exported_tags": [
+    "sampleThreatIntel"
+  ]
+}
