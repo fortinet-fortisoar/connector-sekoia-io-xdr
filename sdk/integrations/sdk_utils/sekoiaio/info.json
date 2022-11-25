@@ -90,14 +90,16 @@
                     "editable": true,
                     "type": "text",
                     "name": "query"
-                },{
+                },
+                {
                     "title": "Earliest time",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
                     "name": "earliest_time"
-                },{
+                },
+                {
                     "title": "Latest time",
                     "required": true,
                     "visible": true,
@@ -149,9 +151,41 @@
                     "title": "Alert uuid",
                     "required": true,
                     "visible": true,
-                    "editable": false,
+                    "editable": true,
                     "type": "text",
                     "name": "alert_uuid"
+                },
+                {
+                    "title": "Comments",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "boolean",
+                    "name": "comments"
+                },
+                {
+                    "title": "Stix",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "boolean",
+                    "name": "stix"
+                },
+                {
+                    "title": "History",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "boolean",
+                    "name": "history"
+                },
+                {
+                    "title": "Countermeasures",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "boolean",
+                    "name": "countermeasures"
                 }
             ]
         }

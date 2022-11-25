@@ -1,19 +1,15 @@
 from urllib.parse import urljoin
 
 import requests
+from connectors.core.connector import get_logger
 from requests import Response, Timeout
+from sdk_utils.sekoiaio.constants import BASE_URL, INTEGRATION_NAME
 from tenacity import (
     RetryError,
     Retrying,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
-)
-
-from connectors.core.connector import get_logger
-from sdk_utils.sekoiaio.constants import (
-    BASE_URL,
-    INTEGRATION_NAME,
 )
 
 logger = get_logger("connector_name")
@@ -40,18 +36,14 @@ class GenericAPIAction:
             content = response.json()
         except ValueError:
             content = response.content
-        message = f"HTTP Request failed: {self._url} with {response.status_code}"
-        logger.log(
-            message,
-            level="error",
-            url=self._url,
-            response=content,
-            status=response.status_code,
+        logger.error(
+            "HTTP Request failed: {0} with {1} {2}".format(
+                self._url, response.status_code, content
+            )
         )
 
     def log_timeout_error(self):
-        message = f"HTTP Request timeout: {self._url}"
-        logger.log(message, level="error", url=self._url)
+        logger.error("HTTP Request timeout: {0}".format(self._url))
 
     def run(self):
         try:
