@@ -7,7 +7,8 @@ logger = get_logger("connector_name")
 
 
 def get_events(config, params: dict):
-    base_get_events = BaseGetEvents(config).configure_http_session()
+    base_get_events = BaseGetEvents(config)
+    base_get_events.configure_http_session()
 
     event_search_job_uuid: str = base_get_events.trigger_event_search_job(
         query=params["query"],
