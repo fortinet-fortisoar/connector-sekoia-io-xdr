@@ -97,3 +97,10 @@ class Client:
             )
 
         return "ok"
+
+
+class StatusWorkflowAction:
+    def __init__(self, uuid: str, name: str, description: str):
+        self.uuid = uuid
+        self.name = name
+        self.description = description

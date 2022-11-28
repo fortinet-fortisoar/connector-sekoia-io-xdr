@@ -75,7 +75,32 @@
             "title": "Update Alert Status",
             "description": " ",
             "enabled": true,
-            "parameters": []
+            "parameters": [
+                {
+                    "title": "Alert UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "alert_uuid"
+                },
+                {
+                    "title": "Comment",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "comment"
+                },
+                {
+                    "title": "Action UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "action_uuid"
+                }
+            ]
         },
         {
             "operation": "get_events",
