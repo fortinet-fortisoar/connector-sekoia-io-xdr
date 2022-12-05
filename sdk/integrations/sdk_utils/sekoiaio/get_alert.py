@@ -11,7 +11,7 @@ def get_alert(config, params: dict):
     """
     Retrieve a specific alert
     """
-    url = urljoin(OPERATION_CENTER_BASE_URL, f"alerts/{params['alert_uuid']}")
+    url = urljoin(OPERATION_CENTER_BASE_URL, params['alert_uuid'])
     payload = dict(
         stix=params.get("stix", False),
         comments=params.get("comments", True),

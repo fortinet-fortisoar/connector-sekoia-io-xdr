@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from connectors.core.connector import get_logger, ConnectorError
 from sdk_utils.sekoiaio.constants import OPERATION_CENTER_BASE_URL
 from sdk_utils.sekoiaio.utils import GenericAPIAction
@@ -8,7 +6,7 @@ logger = get_logger('connector_name')
 
 
 def list_alerts(config, params):
-    url: str = urljoin(OPERATION_CENTER_BASE_URL, "alerts")
+    url: str = OPERATION_CENTER_BASE_URL
     payload: dict = {
         "status_uuid": params.get("status_uuid"),
         "status_name": params.get("status_name"),

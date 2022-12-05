@@ -237,6 +237,182 @@
                     "type": "text"
                 }
             ]
+        },
+        {
+            "operation": "get_asset",
+            "title": "Get asset",
+            "description": "Retrieve an asset based on UUID",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Asset UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "asset_uuid"
+                }
+            ]
+        },
+        {
+            "operation": "update_asset",
+            "title": "Update asset",
+            "description": "Update an asset",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Asset UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "asset_uuid"
+                },
+                {
+                    "title": "Asset type",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "asset_type"
+                },
+                {
+                    "title": "Asset name",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "name"
+                },
+                {
+                    "title": "Asset criticity",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "criticity"
+                },
+                {
+                    "title": "Asset description",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "description"
+                },
+                {
+                    "title": "Asset attributes",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "attributes"
+                },
+                {
+                    "title": "Asset keys",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "keys"
+                },
+                {
+                    "title": "Asset owners",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "owners"
+                },
+                {
+                    "title": "Community UUID",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "community_uuid"
+                }
+            ]
+        },
+        {
+            "operation": "delete_asset",
+            "title": "Delete asset",
+            "description": "Delete an asset based on UUID",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Asset UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "asset_uuid"
+                }
+            ]
+        },
+        {
+            "operation": "activate_countermeasure",
+            "title": "Activate a countermeasure",
+            "description": "Activate a countermeasure",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Countermeasure UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "countermeasure_uuid"
+                },
+                {
+                    "title": "Content",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "content"
+                },
+                {
+                    "title": "Author",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "author"
+                }
+            ]
+        },
+        {
+            "operation": "deny_countermeasure",
+            "title": "Deny a countermeasure",
+            "description": "Deny a countermeasure",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Countermeasure UUID",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "countermeasure_uuid"
+                },
+                {
+                    "title": "Content",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "content"
+                },
+                {
+                    "title": "Author",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "author"
+                }
+            ]
         }
     ]
 }
