@@ -11,7 +11,7 @@ def add_comment_to_alert(config, params: dict):
     """
     Add a comment to an alert
     """
-    url = urljoin(OPERATION_CENTER_BASE_URL, f'{params["alert_uuid"]}/comments')
+    url = f"{OPERATION_CENTER_BASE_URL}/{params['alert_uuid']}/comments"
     body = dict(content=params["comment"], author=params["author"])
 
     try:

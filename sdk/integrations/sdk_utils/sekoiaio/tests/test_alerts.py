@@ -9,7 +9,7 @@ class AlertsTestCase(TestCase):
     conf: dict = {
         "api_key": os.getenv("api_key"),
         "verify_certificate": True,
-        "proxy": True
+        "proxy": True,
     }
 
     def test_get_alert(self):
@@ -28,45 +28,39 @@ class AlertsTestCase(TestCase):
                                 "previous_category": None,
                                 "previous_value": None,
                                 "value": "system-compromise",
-                                "category": "intrusions"
+                                "category": "intrusions",
                             },
                             "created_by": "59899459-d385-48da-9c0e-1d91ebe42c4a",
                             "created_by_type": "application",
                             "entry_type": "alert_type",
                             "created_at": 1669676732,
                             "history_comments": [],
-                            "uuid": "4c96f239-fb71-4ea6-bcdb-f19692f9b097"
+                            "uuid": "4c96f239-fb71-4ea6-bcdb-f19692f9b097",
                         },
                         {
                             "created_by": "59899459-d385-48da-9c0e-1d91ebe42c4a",
                             "created_by_type": "application",
                             "entry_type": "urgency",
                             "created_at": 1669676732,
-                            "urgency": {
-                                "previous_value": None,
-                                "value": 30
-                            },
+                            "urgency": {"previous_value": None, "value": 30},
                             "history_comments": [],
-                            "uuid": "385e63c1-6ee2-403b-b627-f8b3ab83cf42"
+                            "uuid": "385e63c1-6ee2-403b-b627-f8b3ab83cf42",
                         },
                         {
-                            "alert": {
-                                "status": "Pending",
-                                "previous_status": None
-                            },
+                            "alert": {"status": "Pending", "previous_status": None},
                             "created_by": "59899459-d385-48da-9c0e-1d91ebe42c4a",
                             "created_by_type": "application",
                             "entry_type": "alert",
                             "created_at": 1669676732,
                             "history_comments": [],
-                            "uuid": "5736e449-10ad-483e-8394-4b2010f6fffa"
-                        }
+                            "uuid": "5736e449-10ad-483e-8394-4b2010f6fffa",
+                        },
                     ],
                     "created_by": "59899459-d385-48da-9c0e-1d91ebe42c4a",
                     "first_seen_at": "2022-11-28T21:00:00+00:00",
                     "entity": {
                         "uuid": "7f7676e7-a254-43c3-acf6-1b920a94fe51",
-                        "name": "Information Technology Paris site"
+                        "name": "Information Technology Paris site",
                     },
                     "similar": 1,
                     "created_at": 1669676732,
@@ -75,7 +69,7 @@ class AlertsTestCase(TestCase):
                         "severity": 30,
                         "value": 30,
                         "current_value": 30,
-                        "criticity": 0
+                        "criticity": 0,
                     },
                     "community_uuid": "52bd045f-4199-4361-8267-cdebfc784392",
                     "source": None,
@@ -94,11 +88,11 @@ class AlertsTestCase(TestCase):
                         "type": "anomaly",
                         "name": "Abnormal OpenSSH log volume",
                         "pattern": "",
-                        "uuid": "206b78d0-0e48-422d-b770-3bd8cea9c5f6"
+                        "uuid": "206b78d0-0e48-422d-b770-3bd8cea9c5f6",
                     },
                     "alert_type": {
                         "value": "system-compromise",
-                        "category": "intrusions"
+                        "category": "intrusions",
                     },
                     "details": "",
                     "target": None,
@@ -108,7 +102,7 @@ class AlertsTestCase(TestCase):
                     "status": {
                         "description": "The alert is waiting for action",
                         "uuid": "2efc4930-1442-4abb-acf2-58ba219a4fd0",
-                        "name": "Pending"
+                        "name": "Pending",
                     },
                     "last_seen_at": "2022-12-03T21:05:32.307177+00:00",
                     "similarity_strategy": None,
@@ -126,13 +120,13 @@ class AlertsTestCase(TestCase):
                                 "modified": "2022-11-28T23:05:31.408025Z",
                                 "description": "",
                                 "x_sic_site_id": "",
-                                "identity_class": "entity"
+                                "identity_class": "entity",
                             },
                         ],
-                        "spec_version": "2.0"
-                    }
+                        "spec_version": "2.0",
+                    },
                 },
-                "env": {}
+                "env": {},
             }
 
             result = get_alert(config=self.conf, params={"alert_uuid": "ALSaWkxwG2dx"})
@@ -143,19 +137,49 @@ class AlertsTestCase(TestCase):
             assert result["data"] is not None
 
     def test_list_alerts(self):
-        settings.configure()
-        from sdk_utils.sekoiaio.list_alerts import list_alerts
-
-        with patch(f"sdk_utils.sekoiaio.utils.GenericAPIAction.run") as query:
-            query.return_value = {}
-            result = list_alerts(config=self.conf, params={"created_at": "2022-09-10T10:00:00Z", "status_name": "Validate"})
-            assert result is not None
-            assert query.call_count == 1
-            assert "data" in result
-            assert result["data"] is not None
+        pass
 
     def test_update_alert_status(self):
-        pass
+        settings.configure()
+        from sdk_utils.sekoiaio.update_alert_status import (
+            ACTION_VALIDATE,
+            update_alert_status,
+        )
+
+        with patch(f"sdk_utils.sekoiaio.utils.GenericAPIAction.run") as query:
+            query.return_value = 200
+
+            result = update_alert_status(
+                config=self.conf,
+                params={
+                    "alert_uuid": "AL3qevBSq5Qn",
+                    "comment": "Validate",
+                    "action_uuid": ACTION_VALIDATE.uuid,
+                },
+            )
+            assert result == 200
 
     def test_add_comment_to_alert(self):
-        pass
+        settings.configure()
+        from sdk_utils.sekoiaio.add_comment_to_alert import add_comment_to_alert
+
+        with patch(f"sdk_utils.sekoiaio.utils.GenericAPIAction.run") as query:
+            query.return_value = {
+                "unseen": False,
+                "created_by_type": "apikey",
+                "date": 1670309132,
+                "uuid": "516dd80d-f7e5-47cb-90ca-9b8e9954bfd0",
+                "author": "ydi",
+                "created_by": "a2f80bf3-93a0-485d-b3db-51611825474c",
+                "content": "New comment test",
+            }
+            result = add_comment_to_alert(
+                config=self.conf,
+                params={
+                    "alert_uuid": "ALSaWkxwG2dx",
+                    "comment": "New comment test",
+                    "author": "ydi",
+                },
+            )
+            assert result is not None
+            assert "uuid" in result

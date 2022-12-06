@@ -27,7 +27,7 @@ def update_alert_status(config, params):
     Performs an action on the alert and changes the status of the alert
     according to the performed action and the workflow.
     """
-    url = urljoin(OPERATION_CENTER_BASE_URL, f"{params['alert_uuid']}/workflow")
+    url = f"{OPERATION_CENTER_BASE_URL}/{params['alert_uuid']}/workflow"
     body = {"action_uuid": params["action_uuid"], "comment": params.get("comment")}
 
     try:
