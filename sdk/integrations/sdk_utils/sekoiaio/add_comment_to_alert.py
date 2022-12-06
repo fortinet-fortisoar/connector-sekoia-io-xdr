@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from connectors.core.connector import ConnectorError, get_logger
 from sdk_utils.sekoiaio.constants import OPERATION_CENTER_BASE_URL
 from sdk_utils.sekoiaio.utils import GenericAPIAction
