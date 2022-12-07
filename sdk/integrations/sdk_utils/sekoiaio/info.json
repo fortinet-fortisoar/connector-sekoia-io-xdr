@@ -54,7 +54,7 @@
                 },
                 {
                     "title": "Comment",
-                    "required": true,
+                    "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "text",
@@ -150,7 +150,7 @@
                 },
                 {
                     "title": "Comments",
-                    "required": true,
+                    "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
@@ -158,7 +158,7 @@
                 },
                 {
                     "title": "Stix",
-                    "required": true,
+                    "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
@@ -166,7 +166,7 @@
                 },
                 {
                     "title": "History",
-                    "required": true,
+                    "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
@@ -174,7 +174,7 @@
                 },
                 {
                     "title": "Countermeasures",
-                    "required": true,
+                    "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
