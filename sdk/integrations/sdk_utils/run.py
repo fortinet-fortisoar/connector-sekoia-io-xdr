@@ -1,5 +1,5 @@
 """ Copyright start
-  Copyright (C) 2008 - 2020 Fortinet Inc.
+  Copyright (C) 2008 - 2022 Fortinet Inc.
   All rights reserved.
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
@@ -92,7 +92,8 @@ def get_config_inputs(config_fields, config_data):
                 options = ' [True/False]'
             field_msg = field_msg + options
             if default_value:
-                field_msg = field_msg + '(Press Enter to use default value "%s")' % (default_value[:75] + '..') if len(default_value) > 75 else default_value
+                field_msg = field_msg + '(Press Enter to use default value "{0}")'.format(
+                    (default_value[:75] + '..') if len(default_value) > 75 else default_value)
             field_msg = field_msg + ': '
             if field['required']:
                 value = get_input(field_msg, val_type=field['type'])
@@ -168,12 +169,13 @@ def get_params(params, op_input):
                 options = ' [True/False]'
             field_msg = field_msg + options
             if default_value:
-                field_msg = field_msg + '(Press Enter to use default value "%s")' % (default_value[:75] + '..') if len(default_value) > 75 else default_value
+                field_msg = field_msg + '(Press Enter to use default value "{0}")'.format(
+                    (default_value[:75] + '..') if len(default_value) > 75 else default_value)
             field_msg = field_msg + ': '
             if field['required']:
                 value = get_input(field_msg)
             else:
-                value = expand_string(field_msg)
+                value = expand_string(input(field_msg))
         if not value:
             value = field.get('value', None)
         if field['required'] and not value:
