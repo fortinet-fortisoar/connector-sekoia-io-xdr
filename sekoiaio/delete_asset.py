@@ -1,6 +1,7 @@
 from connectors.core.base_connector import ConnectorError
-from sdk_utils.sekoiaio.constants import ASSETS_BASE_URL
-from sdk_utils.sekoiaio.utils import GenericAPIAction
+
+from .constants import ASSETS_BASE_URL
+from .utils import GenericAPIAction
 
 
 def delete_asset(config, params):

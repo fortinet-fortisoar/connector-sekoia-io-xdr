@@ -1,17 +1,18 @@
+from connectors.core.connector import Connector, get_logger
+
 from .activate_countermeasure import activate_countermeasure
+from .add_comment_to_alert import add_comment_to_alert
 from .delete_asset import delete_asset
 from .deny_countermeasure import deny_countermeasure
-from .get_asset import get_asset
-from .update_alert_status import update_alert_status
-from .get_events import get_events
-from .add_comment_to_alert import add_comment_to_alert
 from .get_alert import get_alert
-from .list_alerts import list_alerts
-from connectors.core.connector import get_logger, Connector
+from .get_asset import get_asset
+from .get_events import get_events
 from .health_check import check
+from .list_alerts import list_alerts
+from .update_alert_status import update_alert_status
 from .update_asset import update_asset
 
-logger = get_logger("sekoiaio")
+logger = get_logger("sekoiaio-xdr")
 
 
 class Sekoiaio(Connector):

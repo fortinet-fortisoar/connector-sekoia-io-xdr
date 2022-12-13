@@ -1,4 +1,4 @@
-from sdk_utils.sekoiaio.utils import Client
+from .utils import Client
 
 
 def check(config) -> str:

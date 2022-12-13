@@ -1,7 +1,8 @@
 from typing import Optional
 
 from connectors.core.connector import get_logger
-from sdk_utils.sekoiaio.utils import BaseGetEvents
+
+from .utils import BaseGetEvents
 
 logger = get_logger("connector_name")
 

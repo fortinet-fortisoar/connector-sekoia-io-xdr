@@ -1,8 +1,9 @@
-from connectors.core.connector import get_logger, ConnectorError
-from sdk_utils.sekoiaio.constants import OPERATION_CENTER_BASE_URL
-from sdk_utils.sekoiaio.utils import GenericAPIAction
+from connectors.core.connector import ConnectorError, get_logger
 
-logger = get_logger('connector_name')
+from .constants import OPERATION_CENTER_BASE_URL
+from .utils import GenericAPIAction
+
+logger = get_logger("connector_name")
 
 
 def list_alerts(config, params):
@@ -13,7 +14,7 @@ def list_alerts(config, params):
         "short_id": params.get("short_id"),
         "rule_uuid": params.get("rule_uuid"),
         "rule_name": params.get("rule_name"),
-        "created_at": params.get("created_at")
+        "created_at": params.get("created_at"),
     }
 
     try:
