@@ -1,14 +1,17 @@
 {
     "name": "sekoiaio",
-    "label": "SEKOIA.IO",
-    "description": "Connector to SEKOIA.IO",
-    "publisher": "SEKOIA.IO",
-    "cs_approved": true,
+    "label": "SEKOIA.IO XDR",
+    "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events",
+    "publisher": "Community",
+    "cs_approved": false,
     "cs_compatible": true,
     "version": "1.0.0",
     "category": " ",
     "help_online": " ",
     "help_file": " ",
+    "icon_large_name": "large.png",
+    "icon_medium_name": "medium.png",
+    "icon_small_name": "small.png",
     "configuration": {
         "fields": [
             {
@@ -17,7 +20,8 @@
                 "required": true,
                 "editable": true,
                 "visible": true,
-                "type": "text"
+                "type": "password",
+                "description": "The API key to authenticate requests"
             },
             {
                 "title": "Verify certificate",
@@ -25,7 +29,9 @@
                 "required": false,
                 "editable": true,
                 "visible": true,
-                "type": "boolean"
+                "type": "checkbox",
+                "value": true,
+                "description": "Option to enforce the verification of the ssl connection"
             },
             {
                 "title": "Proxy",
@@ -41,16 +47,17 @@
         {
             "operation": "update_alert_status",
             "title": "Update Alert Status",
-            "description": " ",
+            "description": "Trigger an action on the alert",
             "enabled": true,
             "parameters": [
                 {
-                    "title": "Alert UUID",
+                    "title": "Alert Identifier",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "alert_uuid"
+                    "name": "alert_uuid",
+                    "description": "The unique identifier of the alert (uuid or short_id)"
                 },
                 {
                     "title": "Comment",
@@ -58,7 +65,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "comment"
+                    "name": "comment",
+                    "description": "The comment to associate to the action"
                 },
                 {
                     "title": "Action UUID",
@@ -66,14 +74,15 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "action_uuid"
+                    "name": "action_uuid",
+                    "description": "The unique identifier of the action"
                 }
             ]
         },
         {
             "operation": "get_events",
-            "title": "get events",
-            "description": " ",
+            "title": "Get events",
+            "description": "Search events according the query",
             "enabled": true,
             "parameters": [
                 {
@@ -82,7 +91,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "query"
+                    "name": "query",
+                    "description": "The query to search events"
                 },
                 {
                     "title": "Earliest time",
@@ -90,7 +100,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "earliest_time"
+                    "name": "earliest_time",
+                    "description": "The earliest time of the time range of the search"
                 },
                 {
                     "title": "Latest time",
@@ -98,23 +109,25 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "latest_time"
+                    "name": "latest_time",
+                    "description": "The latest time of the time range of the search"
                 }
             ]
         },
         {
             "operation": "add_comment_to_alert",
             "title": "Add Comment to Alert",
-            "description": " ",
+            "description": "Add a new comment to the alert",
             "enabled": true,
             "parameters": [
                 {
-                    "title": "Alert UUID",
+                    "title": "Alert Identifier",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "alert_uuid"
+                    "name": "alert_uuid",
+                    "description": "The unique identifier of the alert (uuid or short_id)"
                 },
                 {
                     "title": "Comment",
@@ -122,7 +135,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "comment"
+                    "name": "comment",
+                    "description": "The content of the comment"
                 },
                 {
                     "title": "Author",
@@ -130,14 +144,15 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "author"
+                    "name": "author",
+                    "description": "The author of the comment"
                 }
             ]
         },
         {
             "operation": "get_alert",
             "title": "get alert",
-            "description": "Retrieves a specific Alert ",
+            "description": "Retrieves a specific Alert",
             "enabled": true,
             "parameters": [
                 {
@@ -146,63 +161,70 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "alert_uuid"
+                    "name": "alert_uuid",
+                    "description": "The unique identifier of the alert (uuid or short_id)"
                 },
                 {
-                    "title": "Comments",
+                    "title": "Include comments",
                     "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "comments"
+                    "name": "comments",
+                    "description": "Option to include comments of the alert"
                 },
                 {
-                    "title": "Stix",
+                    "title": "Include stix",
                     "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "stix"
+                    "name": "stix",
+                    "description": "Option to include the stix of the alert"
                 },
                 {
-                    "title": "History",
+                    "title": "Include history",
                     "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "history"
+                    "name": "history",
+                    "description": "Option to include the history of the alert"
                 },
                 {
-                    "title": "Countermeasures",
+                    "title": "Include countermeasures",
                     "required": false,
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "countermeasures"
+                    "name": "countermeasures",
+                    "description": "Option to include the countermeasures of the alert"
                 }
             ]
         },
         {
             "operation": "list_alerts",
             "title": "List Alerts",
-            "description": "to add later",
+            "description": "list alerts matching the filters",
             "enabled": true,
             "parameters": [
                 {
-                    "title": "Status UUID",
+                    "title": "Filter by status identifier",
                     "name": "status_uuid",
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "text"
+                    "type": "text",
+                    "description": "Filter alerts according the identifiers of their status."
                 },
                 {
-                    "title": "Status name",
+                    "title": "Filter by status name",
                     "name": "status_name",
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "text"
+                    "type": "text",
+                    "description": "Filter alerts according the name of their status."
                 },
                 {
                     "title": "Short ID",
@@ -210,7 +232,8 @@
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "list"
+                    "type": "list",
+                    "description": "Filter alerts according their short_id."
                 },
                 {
                     "title": "Rule UUID",
@@ -218,7 +241,8 @@
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "text"
+                    "type": "text",
+                    "description": "Filter alerts according the identifiers of rules that raised them"
                 },
                 {
                     "title": "Rule name",
@@ -226,7 +250,8 @@
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "text"
+                    "type": "text",
+                    "description": "Filter alerts according the names of rules that raised them"
                 },
                 {
                     "title": "Created at",
@@ -234,14 +259,15 @@
                     "required": false,
                     "editable": true,
                     "visible": true,
-                    "type": "text"
+                    "type": "text",
+                    "description": "Filter alerts according their creation date"
                 }
             ]
         },
         {
             "operation": "get_asset",
             "title": "Get asset",
-            "description": "Retrieve an asset based on UUID",
+            "description": "Retrieve an asset based on its identifier",
             "enabled": true,
             "parameters": [
                 {
@@ -250,7 +276,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "asset_uuid"
+                    "name": "asset_uuid",
+                    "description": "The unique identifier of the asset"
                 }
             ]
         },
@@ -266,7 +293,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "asset_uuid"
+                    "name": "asset_uuid",
+                    "description": "The unique identifier of the asset"
                 },
                 {
                     "title": "Asset type",
@@ -274,7 +302,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "asset_type"
+                    "name": "asset_type",
+                    "description": "The type of the asset"
                 },
                 {
                     "title": "Asset name",
@@ -282,7 +311,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "name"
+                    "name": "name",
+                    "description": "The name of the asset"
                 },
                 {
                     "title": "Asset criticity",
@@ -290,7 +320,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "criticity"
+                    "name": "criticity",
+                    "description": "The criticity of the asset"
                 },
                 {
                     "title": "Asset description",
@@ -298,7 +329,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "description"
+                    "name": "description",
+                    "description": "The description of the asset"
                 },
                 {
                     "title": "Asset attributes",
@@ -306,7 +338,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "attributes"
+                    "name": "attributes",
+                    "description": "The attributes of the asset"
                 },
                 {
                     "title": "Asset keys",
@@ -314,7 +347,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "keys"
+                    "name": "keys",
+                    "description": "The keys of the assets"
                 },
                 {
                     "title": "Asset owners",
@@ -322,15 +356,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "owners"
-                },
-                {
-                    "title": "Community UUID",
-                    "required": false,
-                    "visible": true,
-                    "editable": true,
-                    "type": "text",
-                    "name": "community_uuid"
+                    "name": "owners",
+                    "description": "the owners of the assets"
                 }
             ]
         },
@@ -346,7 +373,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "asset_uuid"
+                    "name": "asset_uuid",
+                    "description": "The unique identifier of the asset"
                 }
             ]
         },
@@ -362,15 +390,17 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "countermeasure_uuid"
+                    "name": "countermeasure_uuid",
+                    "description": "The unique identifier of the countermeasure"
                 },
                 {
-                    "title": "Content",
+                    "title": "Comment",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "content"
+                    "name": "content",
+                    "description": "The content of the comment to associate to the countermeasure"
                 },
                 {
                     "title": "Author",
@@ -378,7 +408,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "author"
+                    "name": "author",
+                    "description": "The author of the comment to associate to the countermeasure"
                 }
             ]
         },
@@ -394,15 +425,17 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "countermeasure_uuid"
+                    "name": "countermeasure_uuid",
+                    "description": "The unique identifier of the countermeasure"
                 },
                 {
-                    "title": "Content",
+                    "title": "Comment",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "content"
+                    "name": "content",
+                    "description": "The content of the comment to associate to the countermeasure"
                 },
                 {
                     "title": "Author",
@@ -410,7 +443,8 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "author"
+                    "name": "author",
+                    "description": "The author of the comment to associate to the countermeasure"
                 }
             ]
         }
