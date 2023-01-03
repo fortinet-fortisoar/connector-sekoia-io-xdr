@@ -30,7 +30,6 @@
                 "editable": true,
                 "visible": true,
                 "type": "boolean",
-                "value": true,
                 "description": "Option to enforce the verification of the ssl connection"
             },
             {
