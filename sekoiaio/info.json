@@ -169,7 +169,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "comments",
+                    "name": "include_comments",
                     "description": "Option to include comments of the alert"
                 },
                 {
