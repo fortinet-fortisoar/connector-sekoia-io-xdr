@@ -29,7 +29,7 @@
                 "required": false,
                 "editable": true,
                 "visible": true,
-                "type": "checkbox",
+                "type": "boolean",
                 "value": true,
                 "description": "Option to enforce the verification of the ssl connection"
             },
