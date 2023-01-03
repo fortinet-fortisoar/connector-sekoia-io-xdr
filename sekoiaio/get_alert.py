@@ -12,10 +12,10 @@ def get_alert(config, params: dict):
     """
     url = f"{OPERATION_CENTER_BASE_URL}/{params['alert_uuid']}"
     payload = dict(
-        stix=params.get("stix", False),
-        comments=params.get("comments", True),
-        history=params.get("history", True),
-        countermeasures=params.get("countermeasures", True),
+        stix=params.get("include_stix", False),
+        comments=params.get("include_comments", True),
+        history=params.get("include_history", True),
+        countermeasures=params.get("include_countermeasures", True),
     )
 
     try:
