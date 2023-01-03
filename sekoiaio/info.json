@@ -187,7 +187,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "history",
+                    "name": "include_history",
                     "description": "Option to include the history of the alert"
                 },
                 {
