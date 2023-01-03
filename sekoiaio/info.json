@@ -196,7 +196,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "countermeasures",
+                    "name": "include_countermeasures",
                     "description": "Option to include the countermeasures of the alert"
                 }
             ]
