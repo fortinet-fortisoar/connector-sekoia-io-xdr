@@ -178,7 +178,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "boolean",
-                    "name": "stix",
+                    "name": "include_stix",
                     "description": "Option to include the stix of the alert"
                 },
                 {
