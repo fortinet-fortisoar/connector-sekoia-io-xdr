@@ -295,15 +295,24 @@
                     "name": "asset_uuid",
                     "description": "The unique identifier of the asset"
                 },
-                {
-                    "title": "Asset type",
+                   {
+                    "title": "Asset type UUID",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "asset_type",
-                    "description": "The type of the asset"
+                    "name": "asset_type_uuid",
+                    "description": "The uuid of the asset type"
                 },
+                {
+                    "title": "Asset type name",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "type": "text",
+                    "name": "asset_type_name",
+                    "description": "The name of the asset type"
+                },            
                 {
                     "title": "Asset name",
                     "required": true,
