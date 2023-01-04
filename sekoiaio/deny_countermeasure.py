@@ -1,4 +1,3 @@
-from urllib.parse import urljoin
 
 from connectors.core.base_connector import ConnectorError
 
