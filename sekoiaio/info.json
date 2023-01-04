@@ -346,7 +346,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "keys",
+                    "name": "asset_keys",
                     "description": "The keys of the assets"
                 },
                 {
