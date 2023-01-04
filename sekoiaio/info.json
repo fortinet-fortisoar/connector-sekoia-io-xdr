@@ -355,7 +355,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "owners",
+                    "name": "asset_owners",
                     "description": "the owners of the assets"
                 }
             ]
