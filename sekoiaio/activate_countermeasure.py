@@ -10,10 +10,7 @@ def activate_countermeasure(config, params):
     """
     Activate a countermeasure
     """
-    url: str = urljoin(
-        OPERATION_CENTER_BASE_URL,
-        f"countermeasures/{params['countermeasure_uuid']}/activate",
-    )
+    url: str = f"{OPERATION_CENTER_BASE_URL}/countermeasures/{params['countermeasure_uuid']}/activate"
     data: dict = {
         "comment": {"content": params["content"], "author": params.get("author")}
     }
