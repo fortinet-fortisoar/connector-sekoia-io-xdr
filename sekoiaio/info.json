@@ -328,7 +328,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "description",
+                    "name": "asset_description",
                     "description": "The description of the asset"
                 },
                 {
