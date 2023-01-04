@@ -319,7 +319,7 @@
                     "visible": true,
                     "editable": true,
                     "type": "text",
-                    "name": "criticity",
+                    "name": "asset_criticity",
                     "description": "The criticity of the asset"
                 },
                 {
