@@ -1,0 +1,460 @@
+{
+  "name": "sekoia-io-xdr",
+  "label": "SEKOIA.IO XDR",
+  "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events.",
+  "publisher": "Community",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "version": "1.0.0",
+  "category": "Analytics & SIEM",
+  "help_online": "",
+  "icon_large_name": "large.png",
+  "icon_medium_name": "medium.png",
+  "icon_small_name": "small.png",
+  "configuration": {
+    "fields": [
+      {
+        "title": "API Key",
+        "name": "api_key",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "description": "Specify the API key used to access the SEKOIA.IO XDR server to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "Verify Certificate",
+        "name": "verify_certificate",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not."
+      },
+      {
+        "title": "Proxy",
+        "name": "proxy",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "checkbox",
+        "description": "Specifies whether the proxy for the server is to be verified or not."
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_events",
+      "title": "Get Events",
+      "description": "Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Query",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "query",
+          "description": "The query to search events"
+        },
+        {
+          "title": "Earliest Time",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "datetime",
+          "name": "earliest_time",
+          "description": "The earliest time of the time range of the search"
+        },
+        {
+          "title": "Latest Time",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "datetime",
+          "name": "latest_time",
+          "description": "The latest time of the time range of the search"
+        }
+      ]
+    },
+    {
+      "operation": "list_alerts",
+      "title": "List Alerts",
+      "description": "Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Filter by Status Identifier",
+          "name": "status_uuid",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according the identifiers of their status."
+        },
+        {
+          "title": "Filter by Status Name",
+          "name": "status_name",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according the name of their status."
+        },
+        {
+          "title": "Short ID",
+          "name": "short_id",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according their short_id."
+        },
+        {
+          "title": "Rule UUID",
+          "name": "rule_uuid",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according the identifiers of rules that raised them"
+        },
+        {
+          "title": "Rule Name",
+          "name": "rule_name",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according the names of rules that raised them"
+        },
+        {
+          "title": "Created At",
+          "name": "created_at",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "description": "Filter alerts according their creation date"
+        }
+      ]
+    },
+    {
+      "operation": "get_alert",
+      "title": "Get Alert",
+      "description": "Retrieves an specific alert from SEKOIA.IO XDR based on the alert uuid and other input parameters that you have specified. ",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Alert UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "alert_uuid",
+          "description": "The unique identifier of the alert (uuid or short_id)"
+        },
+        {
+          "title": "Include Comments",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "checkbox",
+          "name": "include_comments",
+          "description": "Option to include comments of the alert"
+        },
+        {
+          "title": "Include STIX",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "checkbox",
+          "name": "include_stix",
+          "description": "Option to include the stix of the alert"
+        },
+        {
+          "title": "Include History",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "checkbox",
+          "name": "include_history",
+          "description": "Option to include the history of the alert"
+        },
+        {
+          "title": "Include Countermeasures",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "checkbox",
+          "name": "include_countermeasures",
+          "description": "Option to include the countermeasures of the alert"
+        }
+      ]
+    },
+    {
+      "operation": "update_alert_status",
+      "title": "Update Alert Status",
+      "description": "Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Alert Identifier",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "alert_uuid",
+          "description": "The unique identifier of the alert (uuid or short_id)"
+        },
+        {
+          "title": "Action UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "action_uuid",
+          "description": "The unique identifier of the action"
+        },
+        {
+          "title": "Comment",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "comment",
+          "description": "The comment to associate to the action"
+        }
+      ]
+    },
+    {
+      "operation": "add_comment_to_alert",
+      "title": "Add Comment to Alert",
+      "description": "Add a new comment to the specific alert in SEKOIA.IO XDR based on the alert identifier, comment, and other input parameter you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Alert Identifier",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "alert_uuid",
+          "description": "The unique identifier of the alert (uuid or short_id)"
+        },
+        {
+          "title": "Comment",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "comment",
+          "description": "The content of the comment"
+        },
+        {
+          "title": "Author",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "author",
+          "description": "The author of the comment"
+        }
+      ]
+    },
+    {
+      "operation": "get_asset",
+      "title": "Get Asset",
+      "description": "Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Asset UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_uuid",
+          "description": "The unique identifier of the asset"
+        }
+      ]
+    },
+    {
+      "operation": "update_asset",
+      "title": "Update Asset",
+      "description": "Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Asset UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_uuid",
+          "description": "The unique identifier of the asset"
+        },
+        {
+          "title": "Asset Name",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_name",
+          "description": "The name of the asset"
+        },
+        {
+          "title": "Asset Type UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_type_uuid",
+          "description": "The uuid of the asset type"
+        },
+        {
+          "title": "Asset Type Name",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_type_name",
+          "description": "The name of the asset type"
+        },
+        {
+          "title": "Asset Criticity",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_criticity",
+          "description": "The criticity of the asset"
+        },
+        {
+          "title": "Asset Description",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_description",
+          "description": "The description of the asset"
+        },
+        {
+          "title": "Asset Attributes",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_attributes",
+          "description": "The attributes of the asset"
+        },
+        {
+          "title": "Asset Keys",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_keys",
+          "description": "The keys of the assets"
+        },
+        {
+          "title": "Asset Owners",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_owners",
+          "description": "the owners of the assets"
+        }
+      ]
+    },
+    {
+      "operation": "delete_asset",
+      "title": "Delete Asset",
+      "description": "Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Asset UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "asset_uuid",
+          "description": "The unique identifier of the asset"
+        }
+      ]
+    },
+    {
+      "operation": "activate_countermeasure",
+      "title": "Activate a Countermeasure",
+      "description": "Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Countermeasure UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "countermeasure_uuid",
+          "description": "The unique identifier of the countermeasure"
+        },
+        {
+          "title": "Comment",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "content",
+          "description": "The content of the comment to associate to the countermeasure"
+        },
+        {
+          "title": "Author",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "author",
+          "description": "The author of the comment to associate to the countermeasure"
+        }
+      ]
+    },
+    {
+      "operation": "deny_countermeasure",
+      "title": "Deny a Countermeasure",
+      "description": "Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Countermeasure UUID",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "countermeasure_uuid",
+          "description": "The unique identifier of the countermeasure"
+        },
+        {
+          "title": "Comment",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "content",
+          "description": "The content of the comment to associate to the countermeasure"
+        },
+        {
+          "title": "Author",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "text",
+          "name": "author",
+          "description": "The author of the comment to associate to the countermeasure"
+        }
+      ]
+    }
+  ]
+}

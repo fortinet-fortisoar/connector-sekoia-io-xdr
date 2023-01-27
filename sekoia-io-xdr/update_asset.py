@@ -3,6 +3,7 @@ from connectors.core.base_connector import ConnectorError
 from .constants import ASSETS_BASE_URL
 from .utils import GenericAPIAction
 
+logger = get_logger("sekoia-io-xdr")
 
 def update_asset(config, params):
     """

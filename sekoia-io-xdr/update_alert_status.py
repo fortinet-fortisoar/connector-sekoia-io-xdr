@@ -3,7 +3,7 @@ from connectors.core.connector import ConnectorError, get_logger
 from .constants import OPERATION_CENTER_BASE_URL
 from .utils import GenericAPIAction
 
-logger = get_logger("connector_name")
+logger = get_logger("sekoia-io-xdr")
 
 
 def update_alert_status(config, params):

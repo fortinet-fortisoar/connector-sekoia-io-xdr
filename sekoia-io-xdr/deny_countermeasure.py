@@ -4,6 +4,7 @@ from connectors.core.base_connector import ConnectorError
 from .constants import OPERATION_CENTER_BASE_URL
 from .utils import GenericAPIAction
 
+logger = get_logger("sekoia-io-xdr")
 
 def deny_countermeasure(config, params):
     """

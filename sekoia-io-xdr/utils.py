@@ -17,7 +17,7 @@ from urllib3.util.retry import Retry
 from connectors.core.connector import get_logger
 from sdk_utils.sekoiaio.constants import BASE_URL, INTEGRATION_NAME
 
-logger = get_logger("connector_name")
+logger = get_logger("sekoia-io-xdr")
 
 
 class GenericAPIAction:
