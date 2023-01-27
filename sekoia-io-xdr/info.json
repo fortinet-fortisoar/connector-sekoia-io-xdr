@@ -47,6 +47,8 @@
       "operation": "get_events",
       "title": "Get Events",
       "description": "Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.",
+      "category": "investigation",
+      "annotation": "get_events",
       "enabled": true,
       "parameters": [
         {
@@ -76,12 +78,15 @@
           "name": "latest_time",
           "description": "The latest time of the time range of the search"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "list_alerts",
       "title": "List Alerts",
       "description": "Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "list_alerts",
       "enabled": true,
       "parameters": [
         {
@@ -138,12 +143,15 @@
           "type": "datetime",
           "description": "Filter alerts according their creation date"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "get_alert",
       "title": "Get Alert",
       "description": "Retrieves an specific alert from SEKOIA.IO XDR based on the alert uuid and other input parameters that you have specified. ",
+      "category": "investigation",
+      "annotation": "get_alert",
       "enabled": true,
       "parameters": [
         {
@@ -191,12 +199,15 @@
           "name": "include_countermeasures",
           "description": "Option to include the countermeasures of the alert"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "update_alert_status",
       "title": "Update Alert Status",
       "description": "Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "update_alert_status",
       "enabled": true,
       "parameters": [
         {
@@ -226,12 +237,15 @@
           "name": "comment",
           "description": "The comment to associate to the action"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "add_comment_to_alert",
       "title": "Add Comment to Alert",
       "description": "Add a new comment to the specific alert in SEKOIA.IO XDR based on the alert identifier, comment, and other input parameter you have specified.",
+      "category": "investigation",
+      "annotation": "add_comment_to_alert",
       "enabled": true,
       "parameters": [
         {
@@ -261,12 +275,15 @@
           "name": "author",
           "description": "The author of the comment"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "get_asset",
       "title": "Get Asset",
       "description": "Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+      "category": "investigation",
+      "annotation": "get_asset",
       "enabled": true,
       "parameters": [
         {
@@ -278,12 +295,15 @@
           "name": "asset_uuid",
           "description": "The unique identifier of the asset"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "update_asset",
       "title": "Update Asset",
       "description": "Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "update_asset",
       "enabled": true,
       "parameters": [
         {
@@ -367,12 +387,15 @@
           "name": "asset_owners",
           "description": "the owners of the assets"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "delete_asset",
       "title": "Delete Asset",
       "description": "Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+      "category": "investigation",
+      "annotation": "delete_asset",
       "enabled": true,
       "parameters": [
         {
@@ -384,12 +407,15 @@
           "name": "asset_uuid",
           "description": "The unique identifier of the asset"
         }
-      ]
+      ],
+      "output_schema": {}
     },
     {
       "operation": "activate_countermeasure",
       "title": "Activate a Countermeasure",
       "description": "Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "activate_countermeasure",
       "enabled": true,
       "parameters": [
         {
@@ -419,12 +445,15 @@
           "name": "author",
           "description": "The author of the comment to associate to the countermeasure"
         }
-      ]
+      ],
+       "output_schema": {}
     },
     {
       "operation": "deny_countermeasure",
       "title": "Deny a Countermeasure",
       "description": "Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "deny_countermeasure",
       "enabled": true,
       "parameters": [
         {
@@ -454,7 +483,8 @@
           "name": "author",
           "description": "The author of the comment to associate to the countermeasure"
         }
-      ]
+      ],
+       "output_schema": {}
     }
   ]
 }
