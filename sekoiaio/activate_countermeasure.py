@@ -1,4 +1,3 @@
-
 from connectors.core.base_connector import ConnectorError
 
 from .constants import OPERATION_CENTER_BASE_URL
