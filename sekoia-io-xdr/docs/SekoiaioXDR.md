@@ -11,7 +11,7 @@ Authored By: Community
 Certified: No
 ## Installing the connector
 <p>From FortiSOAR&trade; 5.0.0 onwards, use the <strong>Connector Store</strong> to install the connector. For the detailed procedure to install a connector, click <a href="https://docs.fortinet.com/document/fortisoar/0.0.0/installing-a-connector/1/installing-a-connector" target="_top">here</a>.<br>You can also use the following <code>yum</code> command as a root user to install connectors from an SSH session:</p>
-`yum install cyops-connector-sekoiaio`
+`yum install cyops-connector-sekoia-io-xdr`
 
 ## Prerequisites to configuring the connector
 - You must have the URL of SEKOIA.IO XDR server to which you will connect and perform automated operations and credentials to access that server.
@@ -30,16 +30,16 @@ For the procedure to configure a connector, click [here](https://docs.fortinet.c
 </tbody></table>
 ## Actions supported by the connector
 The following automated operations can be included in playbooks and you can also use the annotations to access operations from FortiSOAR&trade; release 4.10.0 and onwards:
-<table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Get Events<br></td><td>Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>List Alerts<br></td><td>Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Get Alert<br></td><td>Retrieves an specific alert from SEKOIA.IO XDR based on the alert uuid and other input parameters that you have specified. <br></td><td> <br/><br></td></tr>
-<tr><td>Update Alert Status<br></td><td>Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Add Comment to Alert<br></td><td>Add a new comment to the specific alert in SEKOIA.IO XDR based on the alert identifier, comment, and other input parameter you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Get Asset<br></td><td>Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Update Asset<br></td><td>Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Delete Asset<br></td><td>Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Activate a Countermeasure<br></td><td>Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td> <br/><br></td></tr>
-<tr><td>Deny a Countermeasure<br></td><td>Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td> <br/><br></td></tr>
+<table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Get Events<br></td><td>Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.<br></td><td>get_events <br/>Investigation<br></td></tr>
+<tr><td>List Alerts<br></td><td>Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.<br></td><td>list_alerts <br/>Investigation<br></td></tr>
+<tr><td>Get Alert<br></td><td>Retrieves an specific alert from SEKOIA.IO XDR based on the alert uuid and other input parameters that you have specified. <br></td><td>get_alert <br/>Investigation<br></td></tr>
+<tr><td>Update Alert Status<br></td><td>Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.<br></td><td>update_alert_status <br/>Investigation<br></td></tr>
+<tr><td>Add Comment to Alert<br></td><td>Add a new comment to the specific alert in SEKOIA.IO XDR based on the alert identifier, comment, and other input parameter you have specified.<br></td><td>add_comment_to_alert <br/>Investigation<br></td></tr>
+<tr><td>Get Asset<br></td><td>Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.<br></td><td>get_asset <br/>Investigation<br></td></tr>
+<tr><td>Update Asset<br></td><td>Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.<br></td><td>update_asset <br/>Investigation<br></td></tr>
+<tr><td>Delete Asset<br></td><td>Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.<br></td><td>delete_asset <br/>Investigation<br></td></tr>
+<tr><td>Activate a Countermeasure<br></td><td>Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td>activate_countermeasure <br/>Investigation<br></td></tr>
+<tr><td>Deny a Countermeasure<br></td><td>Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td>deny_countermeasure <br/>Investigation<br></td></tr>
 </tbody></table>
 ### operation: Get Events
 #### Input parameters
@@ -49,7 +49,7 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: List Alerts
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Filter by Status Identifier<br></td><td>Filter alerts according the identifiers of their status.<br>
@@ -61,7 +61,7 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Get Alert
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert UUID<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
@@ -72,7 +72,7 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Update Alert Status
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert Identifier<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
@@ -81,7 +81,7 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Add Comment to Alert
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert Identifier<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
@@ -90,14 +90,14 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Get Asset
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Update Asset
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
@@ -112,14 +112,14 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Delete Asset
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Activate a Countermeasure
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Countermeasure UUID<br></td><td>The unique identifier of the countermeasure<br>
@@ -128,7 +128,7 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ### operation: Deny a Countermeasure
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Countermeasure UUID<br></td><td>The unique identifier of the countermeasure<br>
@@ -137,9 +137,9 @@ The following automated operations can be included in playbooks and you can also
 </td></tr></tbody></table>
 #### Output
 
- No output schema is available at this time.
+ The output contains a non-dictionary value.
 ## Included playbooks
-The `Sample - sekoiaio - 1.0.0` playbook collection comes bundled with the SEKOIA.IO XDR connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the SEKOIA.IO XDR connector.
+The `Sample - sekoia-io-xdr - 1.0.0` playbook collection comes bundled with the SEKOIA.IO XDR connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the SEKOIA.IO XDR connector.
 
 - Get Events
 - List Alerts
