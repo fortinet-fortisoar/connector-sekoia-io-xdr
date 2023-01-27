@@ -1,15 +1,15 @@
-
 from connectors.core.base_connector import ConnectorError
 
 from .constants import OPERATION_CENTER_BASE_URL
 from .utils import GenericAPIAction
 
+logger = get_logger("sekoia-io-xdr")
 
-def deny_countermeasure(config, params):
+def activate_countermeasure(config, params):
     """
-    Deny a countermeasure
+    Activate a countermeasure
     """
-    url: str = f"{OPERATION_CENTER_BASE_URL}/countermeasures/{params['countermeasure_uuid']}/deny"
+    url: str = f"{OPERATION_CENTER_BASE_URL}/countermeasures/{params['countermeasure_uuid']}/activate"
     data: dict = {
         "comment": {"content": params["content"], "author": params.get("author")}
     }

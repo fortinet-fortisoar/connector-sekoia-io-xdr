@@ -4,7 +4,7 @@ from connectors.core.connector import get_logger
 
 from .utils import BaseGetEvents
 
-logger = get_logger("connector_name")
+logger = get_logger("sekoia-io-xdr")
 
 
 def get_events(config, params: dict):

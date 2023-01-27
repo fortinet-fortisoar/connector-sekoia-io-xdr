@@ -12,7 +12,7 @@ from .list_alerts import list_alerts
 from .update_alert_status import update_alert_status
 from .update_asset import update_asset
 
-logger = get_logger("sekoiaio")
+logger = get_logger("sekoia-io-xdr")
 
 
 class Sekoiaio(Connector):
