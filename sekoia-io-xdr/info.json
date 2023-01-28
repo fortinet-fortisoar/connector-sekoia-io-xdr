@@ -7,7 +7,7 @@
   "cs_compatible": true,
   "version": "1.0.0",
   "category": "Analytics & SIEM",
-  "help_online": "https://github.com/fortinet-fortisoar/connector-robtex/blob/release/1.0.0/docs/SekoiaioXDR.md",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-sekoia-io-xdr/blob/release/1.0.0/docs/SekoiaioXDR.md",
   "icon_large_name": "large.png",
   "icon_medium_name": "medium.png",
   "icon_small_name": "small.png",
