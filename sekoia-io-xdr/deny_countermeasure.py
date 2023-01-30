@@ -1,5 +1,4 @@
-
-from connectors.core.base_connector import ConnectorError
+from connectors.core.connector import ConnectorError, get_logger
 
 from .constants import OPERATION_CENTER_BASE_URL
 from .utils import GenericAPIAction
