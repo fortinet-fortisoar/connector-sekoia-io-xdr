@@ -6,7 +6,7 @@ SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat I
 Connector Version: 1.0.0
 
 
-Authored By: Community
+Authored By: SEKOIA.IO
 
 Certified: No
 ## Installing the connector
