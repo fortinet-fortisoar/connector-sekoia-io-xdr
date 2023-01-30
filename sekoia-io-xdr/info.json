@@ -2,7 +2,7 @@
   "name": "sekoia-io-xdr",
   "label": "SEKOIA.IO XDR",
   "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events.",
-  "publisher": "Community",
+  "publisher": "SEKOIA.IO",
   "cs_approved": false,
   "cs_compatible": true,
   "version": "1.0.0",
