@@ -140,7 +140,7 @@
           "required": false,
           "editable": true,
           "visible": true,
-          "type": "datetime",
+          "type": "text",
           "description": "Filter alerts according their creation date"
         }
       ],
