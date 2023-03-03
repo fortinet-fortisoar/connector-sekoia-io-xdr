@@ -9,8 +9,8 @@ logger = get_logger("sekoia-io-xdr")
 def list_alerts(config, params):
     url: str = OPERATION_CENTER_BASE_URL
 
-    if params.get("start_date") or params.get("end_date"):
-        created_at = f"{params['start_date'] or ''},{params['end_date'] or ''}"
+    if params.get("creation_start_date") or params.get("creation_end_date"):
+        created_at = f"{params['creation_start_date'] or ''},{params['creation_end_date'] or ''}"
     else:
         created_at = None
 
