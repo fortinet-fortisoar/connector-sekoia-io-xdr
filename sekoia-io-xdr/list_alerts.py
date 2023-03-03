@@ -10,7 +10,7 @@ def list_alerts(config, params):
     url: str = OPERATION_CENTER_BASE_URL
 
     if params.get("start_date") or params.get("end_date"):
-        created_at = f"{params['start_date']}, {params['end_date']}"
+        created_at = f"{params['start_date'] or ''},{params['end_date'] or ''}"
     else:
         created_at = None
 
