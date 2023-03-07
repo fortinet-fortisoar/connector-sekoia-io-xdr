@@ -1,6 +1,6 @@
 # connector-sekoia-io-xdr
 
-In order to enable our client SNS security to make full use of our XDR platform, we were asked to create this SEKOIA.IO python connector in FortiSOAR.
+This connector enable you to make full use of the SEKOIA.IO XDR platform.
 
 #### It includes ths following actions:
 - Retrieve a list of alerts that could be filtered by `creation date`, `status name`, `status uuid`, `short id of the alerts`, and/or the `rule name`.
