@@ -2,7 +2,8 @@
 
 This connector enable you to make full use of the SEKOIA.IO XDR platform.
 
-#### It includes ths following actions:
+It includes the following actions:
+
 - Retrieve a list of alerts that could be filtered by `creation date`, `status name`, `status uuid`, `short id of the alerts`, and/or the `rule name`.
 - Retrieve events from sekoia.io, the required parameters are: `query` to filter the events, `earliest_time` and `latest_time` that forms a date range to filter the search.
 - Add a comment to an alert.
