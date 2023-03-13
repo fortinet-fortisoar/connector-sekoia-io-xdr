@@ -135,8 +135,17 @@
           "description": "Filter alerts according the names of rules that raised them"
         },
         {
-          "title": "Created At",
-          "name": "created_at",
+          "title": "Start date",
+          "name": "start_date",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "datetime",
+          "description": "Filter alerts according to their creation date"
+        },
+        {
+          "title": "End date",
+          "name": "end_date",
           "required": false,
           "editable": true,
           "visible": true,
