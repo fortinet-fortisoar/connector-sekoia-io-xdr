@@ -3,7 +3,7 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - SEKOIA.IO XDR - 1.0.0",
+      "name": "Sample - SEKOIA.IO XDR - 1.0.1",
       "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events.",
       "visible": true,
       "image": null,
@@ -432,8 +432,11 @@
               "arguments": {
                 "name": "SEKOIA.IO XDR",
                 "config": "",
-                "params": [],
-                "version": "1.0.0",
+                "params": {
+                    "creation_start_date": "-7d",
+                    "creation_end_date": "now"
+                },
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "list_alerts",
                 "operationTitle": "List Alerts",
