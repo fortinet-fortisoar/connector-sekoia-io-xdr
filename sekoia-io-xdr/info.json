@@ -5,9 +5,9 @@
   "publisher": "SEKOIA.IO",
   "cs_approved": false,
   "cs_compatible": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "category": "Analytics & SIEM",
-  "help_online": "https://github.com/fortinet-fortisoar/connector-sekoia-io-xdr/blob/release/1.0.0/docs/SekoiaioXDR.md",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-sekoia-io-xdr/blob/release/1.0.1/docs/SekoiaioXDR.md",
   "icon_large_name": "large.png",
   "icon_medium_name": "medium.png",
   "icon_small_name": "small.png",
@@ -135,13 +135,22 @@
           "description": "Filter alerts according the names of rules that raised them"
         },
         {
-          "title": "Created At",
-          "name": "created_at",
+          "title": "Creation Start Date",
+          "name": "creation_start_date",
           "required": false,
           "editable": true,
           "visible": true,
-          "type": "datetime",
-          "description": "Filter alerts according their creation date"
+          "type": "text",
+          "description": "Filter alerts according to their first creation date"
+        },
+        {
+          "title": "Creation End Date",
+          "name": "creation_end_date",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "description": "Filter alerts according to their last creation date"
         }
       ],
       "output_schema": {}

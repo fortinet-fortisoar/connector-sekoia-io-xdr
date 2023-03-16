@@ -8,13 +8,19 @@ logger = get_logger("sekoia-io-xdr")
 
 def list_alerts(config, params):
     url: str = OPERATION_CENTER_BASE_URL
+
+    if params.get("creation_start_date") or params.get("creation_end_date"):
+        created_at = f"{params['creation_start_date'] or ''},{params['creation_end_date'] or ''}"
+    else:
+        created_at = None
+
     payload: dict = {
-        "status_uuid": params.get("status_uuid"),
-        "status_name": params.get("status_name"),
-        "short_id": params.get("short_id"),
-        "rule_uuid": params.get("rule_uuid"),
-        "rule_name": params.get("rule_name"),
-        "created_at": params.get("created_at"),
+        "match[status_uuid]": params.get("status_uuid"),
+        "match[status_name]": params.get("status_name"),
+        "match[short_id]": params.get("short_id"),
+        "match[rule_uuid]": params.get("rule_uuid"),
+        "match[rule_name]": params.get("rule_name"),
+        "date[created_at]": created_at,
     }
 
     try:
