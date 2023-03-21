@@ -3,7 +3,7 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - SEKOIA.IO XDR - 1.0.0",
+      "name": "Sample - SEKOIA.IO XDR - 1.0.1",
       "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events.",
       "visible": true,
       "image": null,
@@ -43,7 +43,7 @@
                   "comment": "Sample",
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "add_comment_to_alert",
                 "operationTitle": "Add Comment to Alert",
@@ -146,7 +146,7 @@
                   "asset_attributes": "",
                   "asset_description": ""
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "update_asset",
                 "operationTitle": "Update Asset",
@@ -271,7 +271,7 @@
                   "content": "Sample",
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "deny_countermeasure",
                 "operationTitle": "Deny a Countermeasure",
@@ -340,7 +340,7 @@
                   "latest_time": "2023-01-26T18:30:00.000Z",
                   "earliest_time": "2023-01-24T18:30:00.000Z"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "get_events",
                 "operationTitle": "Get Events",
@@ -432,8 +432,11 @@
               "arguments": {
                 "name": "SEKOIA.IO XDR",
                 "config": "",
-                "params": [],
-                "version": "1.0.0",
+                "params": {
+                    "creation_start_date": "-7d",
+                    "creation_end_date": "now"
+                },
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "list_alerts",
                 "operationTitle": "List Alerts",
@@ -530,7 +533,7 @@
                   "content": "Sample",
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "activate_countermeasure",
                 "operationTitle": "Activate a Countermeasure",
@@ -625,7 +628,7 @@
                 "params": {
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "get_asset",
                 "operationTitle": "Get Asset",
@@ -750,7 +753,7 @@
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
                   "action_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "update_alert_status",
                 "operationTitle": "Update Alert Status",
@@ -817,7 +820,7 @@
                 "params": {
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "delete_asset",
                 "operationTitle": "Delete Asset",
@@ -944,7 +947,7 @@
                   "include_comments": "",
                   "include_countermeasures": ""
                 },
-                "version": "1.0.0",
+                "version": "1.0.1",
                 "connector": "sekoiaio",
                 "operation": "get_alert",
                 "operationTitle": "Get Alert",

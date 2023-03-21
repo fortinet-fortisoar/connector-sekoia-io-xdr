@@ -3,7 +3,7 @@ SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat I
 <p>This document provides information about the SEKOIA.IO XDR Connector, which facilitates automated interactions, with a SEKOIA.IO XDR server using FortiSOAR&trade; playbooks. Add the SEKOIA.IO XDR Connector as a step in FortiSOAR&trade; playbooks and perform automated operations with SEKOIA.IO XDR.</p>
 ### Version information
 
-Connector Version: 1.0.0
+Connector Version: 1.0.1
 
 
 Authored By: SEKOIA.IO
@@ -57,7 +57,8 @@ The following automated operations can be included in playbooks and you can also
 </td></tr><tr><td>Short ID<br></td><td>Filter alerts according their short_id.<br>
 </td></tr><tr><td>Rule UUID<br></td><td>Filter alerts according the identifiers of rules that raised them<br>
 </td></tr><tr><td>Rule Name<br></td><td>Filter alerts according the names of rules that raised them<br>
-</td></tr><tr><td>Created At<br></td><td>Filter alerts according their creation date<br>
+</td></tr><tr><td>Creation Start Date<br></td><td>Filter alerts according to their first creation date<br>
+</td></tr><tr><td>Creation End Date<br></td><td>Filter alerts according to their last creation date<br>
 </td></tr></tbody></table>
 #### Output
 
@@ -139,7 +140,7 @@ The following automated operations can be included in playbooks and you can also
 
  The output contains a non-dictionary value.
 ## Included playbooks
-The `Sample - sekoia-io-xdr - 1.0.0` playbook collection comes bundled with the SEKOIA.IO XDR connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the SEKOIA.IO XDR connector.
+The `Sample - sekoia-io-xdr - 1.0.1` playbook collection comes bundled with the SEKOIA.IO XDR connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the SEKOIA.IO XDR connector.
 
 - Get Events
 - List Alerts
