@@ -28,7 +28,6 @@ For the procedure to configure a connector, click [here](https://docs.fortinet.c
 <tr><td>Verify Certificate<br></td><td>Specifies whether the SSL certificate for the server is to be verified or not.<br>
 <tr><td>Proxy<br></td><td>Specifies whether the proxy for the server is to be verified or not.<br>
 </tbody></table>
- 
 ## Actions supported by the connector
 The following automated operations can be included in playbooks and you can also use the annotations to access operations from FortiSOAR&trade; release 4.10.0 and onwards:
 <table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Get Events<br></td><td>Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.<br></td><td>get_events <br/>Investigation<br></td></tr>
@@ -42,21 +41,16 @@ The following automated operations can be included in playbooks and you can also
 <tr><td>Activate a Countermeasure<br></td><td>Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td>activate_countermeasure <br/>Investigation<br></td></tr>
 <tr><td>Deny a Countermeasure<br></td><td>Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.<br></td><td>deny_countermeasure <br/>Investigation<br></td></tr>
 </tbody></table>
- 
 ### operation: Get Events
- 
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Query<br></td><td>The query to search events<br>
 </td></tr><tr><td>Earliest Time<br></td><td>The earliest time of the time range of the search<br>
 </td></tr><tr><td>Latest Time<br></td><td>The latest time of the time range of the search<br>
 </td></tr></tbody></table>
- 
 #### Output
 
  The output contains a non-dictionary value.
- 
 ### operation: List Alerts
- 
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Filter by Status Identifier<br></td><td>Filter alerts according the identifiers of their status.<br>
 </td></tr><tr><td>Filter by Status Name<br></td><td>Filter alerts according the name of their status.<br>
@@ -66,13 +60,10 @@ The following automated operations can be included in playbooks and you can also
 </td></tr><tr><td>Creation Start Date<br></td><td>Filter alerts according to their first creation date<br>
 </td></tr><tr><td>Creation End Date<br></td><td>Filter alerts according to their last creation date<br>
 </td></tr></tbody></table>
- 
 #### Output
 
  The output contains a non-dictionary value.
- 
 ### operation: Get Alert
- 
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert UUID<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
 </td></tr><tr><td>Include Comments<br></td><td>Option to include comments of the alert<br>
@@ -80,48 +71,35 @@ The following automated operations can be included in playbooks and you can also
 </td></tr><tr><td>Include History<br></td><td>Option to include the history of the alert<br>
 </td></tr><tr><td>Include Countermeasures<br></td><td>Option to include the countermeasures of the alert<br>
 </td></tr></tbody></table>
- 
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Update Alert Status
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert Identifier<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
 </td></tr><tr><td>Action UUID<br></td><td>The unique identifier of the action<br>
 </td></tr><tr><td>Comment<br></td><td>The comment to associate to the action<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Add Comment to Alert
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Alert Identifier<br></td><td>The unique identifier of the alert (uuid or short_id)<br>
 </td></tr><tr><td>Comment<br></td><td>The content of the comment<br>
 </td></tr><tr><td>Author<br></td><td>The author of the comment<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Get Asset
-
 #### Input parameters
-
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Update Asset
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
 </td></tr><tr><td>Asset Name<br></td><td>The name of the asset<br>
@@ -133,45 +111,34 @@ The following automated operations can be included in playbooks and you can also
 </td></tr><tr><td>Asset Keys<br></td><td>The keys of the assets<br>
 </td></tr><tr><td>Asset Owners<br></td><td>the owners of the assets<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Delete Asset
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Asset UUID<br></td><td>The unique identifier of the asset<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Activate a Countermeasure
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Countermeasure UUID<br></td><td>The unique identifier of the countermeasure<br>
 </td></tr><tr><td>Comment<br></td><td>The content of the comment to associate to the countermeasure<br>
 </td></tr><tr><td>Author<br></td><td>The author of the comment to associate to the countermeasure<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ### operation: Deny a Countermeasure
-
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Countermeasure UUID<br></td><td>The unique identifier of the countermeasure<br>
 </td></tr><tr><td>Comment<br></td><td>The content of the comment to associate to the countermeasure<br>
 </td></tr><tr><td>Author<br></td><td>The author of the comment to associate to the countermeasure<br>
 </td></tr></tbody></table>
-
 #### Output
 
  The output contains a non-dictionary value.
-
 ## Included playbooks
 The `Sample - sekoia-io-xdr - 1.0.1` playbook collection comes bundled with the SEKOIA.IO XDR connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the SEKOIA.IO XDR connector.
 
