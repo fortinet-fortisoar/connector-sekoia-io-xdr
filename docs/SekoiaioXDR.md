@@ -17,7 +17,7 @@ Certified: No
 
 ## Prerequisites to configuring the connector
 
-- You must have the URL of SEKOIA.IO XDR server to which you will connect and perform automated operations and credentials to access that server.
+- You must have the API Key of SEKOIA.IO XDR server to which you will connect and perform automated operations and credentials to access that server.
 - The FortiSOAR&trade; server should have outbound connectivity to port 443 on the SEKOIA.IO XDR server.
 
 ## Minimum Permissions Required
@@ -35,7 +35,9 @@ For the procedure to configure a connector, click [here](https://docs.fortinet.c
 <tr><td>Verify Certificate<br></td><td>Specifies whether the SSL certificate for the server is to be verified or not.<br>
 <tr><td>Proxy<br></td><td>Specifies whether the proxy for the server is to be verified or not.<br>
 </tbody></table>
+
 ## Actions supported by the connector
+
 The following automated operations can be included in playbooks and you can also use the annotations to access operations from FortiSOAR&trade; release 4.10.0 and onwards:
 <table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Get Events<br></td><td>Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.<br></td><td>get_events <br/>Investigation<br></td></tr>
 <tr><td>List Alerts<br></td><td>Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.<br></td><td>list_alerts <br/>Investigation<br></td></tr>
