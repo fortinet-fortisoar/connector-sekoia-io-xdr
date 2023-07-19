@@ -3,16 +3,393 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - SEKOIA.IO XDR - 1.0.1",
-      "description": "SEKOIA.IO eXtended Detection and Response SaaS platform leverages Cyber Threat Intelligence to combine anticipation with automated incident response. SEKOIA.IO XDR offers open, transparent and flexible security oversight to break down silos and neutralise threats before impact, using intelligence. This connector facilitates automated operations related to alerts, assets and events.",
+      "name": "Sample - SEKOIA.IO XDR - 1.0.2",
+      "description": "Sample playbooks for \"SEKOIA.IO XDR\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
-      "image": null,
-      "uuid": "b1c04225-cbfd-47b8-af5c-e681046772d4",
-      "id": 230,
+      "image": "",
+      "uuid": "efc0cb24-2e34-4f4f-b758-e3309ef24230",
+      "id": 70,
       "deletedAt": null,
       "importedBy": [],
       "recordTags": [],
       "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "> Sekoia.io > Fetch",
+          "aliasName": null,
+          "tag": "#fortinet-fortisiem #fetch #dataingestion",
+          "description": "This playbook fetch the open incidents.",
+          "isActive": true,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771432,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/f9f63498-b36b-44e8-9c3d-1c9e38f41d6a",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Compute Pages",
+              "description": null,
+              "arguments": {
+                "pages": "{{range(0,vars.records_count,vars.records_per_page)|list}}"
+              },
+              "status": null,
+              "top": "975",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "1ea0e32c-6731-4e3c-9e8f-329fba43f27e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "minutes": "99",
+                "fetch_mode": "By Updates In Last X Minutes",
+                "records_per_page": "100",
+                "SekoiaIOMacroName": "SekoiaIOLastPullTime_{{vars['audit_info']['cyops_playbook_iri'].split('/')[-1].replace('-','_')}}",
+                "alert_status_name": "",
+                "max_records_count": 5
+              },
+              "status": null,
+              "top": "165",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "b718c9bd-653d-4770-abca-abbbb43dbf11"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Incident",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "299a13b9-c0e0-43f5-bad3-a4f121167b14",
+                "params": {
+                  "limit": 1,
+                  "offset": 0,
+                  "short_id": "",
+                  "rule_name": "",
+                  "rule_uuid": "",
+                  "status_name": "{{vars.alert_status_name}}",
+                  "status_uuid": "",
+                  "updated_end_date": "",
+                  "creation_end_date": "{{vars.curr_timestamp}}",
+                  "updated_start_date": "",
+                  "creation_start_date": "{{vars.last_pull_time}}"
+                },
+                "version": "1.0.2",
+                "connector": "sekoia-io-xdr",
+                "operation": "list_alerts",
+                "operationTitle": "List Alerts",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "570",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "5a769187-ab63-4543-bf94-09e44bd10d02"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Incidents",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "when": "{{vars.pages | length > 0}}",
+                "config": "299a13b9-c0e0-43f5-bad3-a4f121167b14",
+                "params": {
+                  "limit": "{{vars.records_per_page}}",
+                  "offset": "{{vars.item}}",
+                  "short_id": "",
+                  "rule_name": "",
+                  "rule_uuid": "",
+                  "status_name": "{{vars.alert_status_name}}",
+                  "status_uuid": "",
+                  "updated_end_date": "",
+                  "creation_end_date": "{{vars.curr_timestamp}}",
+                  "updated_start_date": "",
+                  "creation_start_date": "{{vars.last_pull_time}}"
+                },
+                "version": "1.0.2",
+                "for_each": {
+                  "item": "{{vars.pages}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "connector": "sekoia-io-xdr",
+                "operation": "list_alerts",
+                "operationTitle": "List Alerts",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1110",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "bcd89eb8-02f0-41bb-a888-02575977e240"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Macro Value",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/?format=json&name={{vars.SekoiaIOMacroName}}",
+                  "body": "",
+                  "method": "GET"
+                },
+                "version": "3.2.4",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "c4e6a775-71d4-4d0d-b697-dac33031e356"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Records Count",
+              "description": null,
+              "arguments": {
+                "records_count": "{{vars.steps.Fetch_Incident.data.total if vars.steps.Fetch_Incident.data.total < vars.max_records_count else vars.max_records_count}}"
+              },
+              "status": null,
+              "top": "705",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "e0b57965-c466-4d51-919b-7edc05393b0f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Records Returned",
+              "description": null,
+              "arguments": {
+                "conditions": [
+                  {
+                    "option": "yes",
+                    "step_iri": "/api/3/workflow_steps/1ea0e32c-6731-4e3c-9e8f-329fba43f27e",
+                    "condition": "{{ vars.records_count is not none and vars.records_count > 0 }}",
+                    "step_name": "Compute Pages"
+                  },
+                  {
+                    "option": "no",
+                    "default": true,
+                    "step_iri": "/api/3/workflow_steps/144564ee-6d51-48c5-83e3-6ae9ddb4ab42",
+                    "step_name": "Returns No Results"
+                  }
+                ],
+                "step_variables": []
+              },
+              "status": null,
+              "top": "840",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+              "group": null,
+              "uuid": "bc684a18-5d72-41d0-bf84-2e88c043f8b8"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Return Results",
+              "description": null,
+              "arguments": {
+                "data": "{{vars.steps.Fetch_Incidents|json_query(\"[].data.items[]\")}}",
+                "event_count": "0",
+                "current_time": "{{vars.curr_timestamp}}",
+                "SekoiaIOMacroName": "{{vars.SekoiaIOMacroName}}"
+              },
+              "status": null,
+              "top": "1245",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "27f59ca4-c0e9-4dfc-bf4d-54f831bb4b9c"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Returns No Results",
+              "description": null,
+              "arguments": {
+                "data": "",
+                "event_count": "0",
+                "current_time": "{{vars.curr_timestamp}}",
+                "SekoiaIOMacroName": "{{vars.SekoiaIOMacroName}}"
+              },
+              "status": null,
+              "top": "975",
+              "left": "475",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "144564ee-6d51-48c5-83e3-6ae9ddb4ab42"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Time Configuration",
+              "description": null,
+              "arguments": {
+                "macro_name": "{{vars.SekoiaIOMacroName}}",
+                "curr_timestamp": "{{ arrow.utcnow().format('YYYY-MM-DDTHH:mm:ss.ssss')\n}}Z",
+                "last_pull_time": "{%if vars.steps.Get_Macro_Value.data['hydra:member'] | length > 0 %}{%if vars.request.env_setup %}{%if not vars.minutes or vars.minutes == ''%}0{% else %}{{((arrow.utcnow().shift(minutes=-vars.minutes)).format('YYYY-MM-DDTHH:mm:ss.ssss'))}}Z{% endif %}{% else %}{{vars.steps.Get_Macro_Value.data['hydra:member'][0]['value']}}{% endif %}{% else %}{%if not vars.minutes or vars.minutes == ''%}0{% else %}{{((arrow.utcnow().shift(minutes=-vars.minutes)).format('YYYY-MM-DDTHH:mm:ss.ssss'))}}Z{% endif %}{% endif %}"
+              },
+              "status": null,
+              "top": "435",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "192cdea6-e2e4-4b95-b99a-d04fe046c3aa"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  },
+                  "useMockOutput": "False",
+                  "_configuration_schema": "[\n  {\n    \"title\": \"Pull Alerts Created In Last X Minutes\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"type\": \"text\",\n    \"name\": \"minutes\",\n    \"tooltip\": \"Fetch Alerts from last X minutes. e.g 5\",\n    \"value\": 30\n  },\n  {\n    \"title\": \"Maximum Alerts To Pull\",\n    \"name\": \"max_records_count\",\n    \"type\": \"integer\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 1000,\n    \"tooltip\": \"The Maximum number of Alerts to be fetched from SekoiaIO\"\n  },\n  {\n    \"title\": \"Alert Status Name\",\n    \"type\": \"select\",\n    \"name\": \"alert_status_name\",\n    \"options\": [\n      \"Ongoing\",\n      \"Rejected\",\n      \"Pending\"\n    ],\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
+                }
+              },
+              "status": null,
+              "top": "30",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "group": null,
+              "uuid": "f9f63498-b36b-44e8-9c3d-1c9e38f41d6a"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compute Pages -> Fetch Incidents",
+              "targetStep": "/api/3/workflow_steps/bcd89eb8-02f0-41bb-a888-02575977e240",
+              "sourceStep": "/api/3/workflow_steps/1ea0e32c-6731-4e3c-9e8f-329fba43f27e",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "30b3646c-2380-4817-92ee-c3729d6bc7ab"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Get Macro Value",
+              "targetStep": "/api/3/workflow_steps/c4e6a775-71d4-4d0d-b697-dac33031e356",
+              "sourceStep": "/api/3/workflow_steps/b718c9bd-653d-4770-abca-abbbb43dbf11",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "421a9cf8-1bcc-485d-9452-1bef48091916"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Incident -> Get Records Count",
+              "targetStep": "/api/3/workflow_steps/e0b57965-c466-4d51-919b-7edc05393b0f",
+              "sourceStep": "/api/3/workflow_steps/5a769187-ab63-4543-bf94-09e44bd10d02",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "f3c8f780-8aa9-4553-9bc2-43dd938b2547"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Incidents -> Return Results",
+              "targetStep": "/api/3/workflow_steps/27f59ca4-c0e9-4dfc-bf4d-54f831bb4b9c",
+              "sourceStep": "/api/3/workflow_steps/bcd89eb8-02f0-41bb-a888-02575977e240",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "1cf3e714-5ca5-49fd-93bb-752006f8d6de"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Macro Value -> Set Time Configuration",
+              "targetStep": "/api/3/workflow_steps/192cdea6-e2e4-4b95-b99a-d04fe046c3aa",
+              "sourceStep": "/api/3/workflow_steps/c4e6a775-71d4-4d0d-b697-dac33031e356",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "034ebefc-4556-4f00-b319-d74512e21d4c"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Records Count -> Records Returned",
+              "targetStep": "/api/3/workflow_steps/bc684a18-5d72-41d0-bf84-2e88c043f8b8",
+              "sourceStep": "/api/3/workflow_steps/e0b57965-c466-4d51-919b-7edc05393b0f",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "a996265d-2a84-4c04-9a76-cd748cdb75b6"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Records Returned -> Compute Pages",
+              "targetStep": "/api/3/workflow_steps/1ea0e32c-6731-4e3c-9e8f-329fba43f27e",
+              "sourceStep": "/api/3/workflow_steps/bc684a18-5d72-41d0-bf84-2e88c043f8b8",
+              "label": "yes",
+              "isExecuted": false,
+              "group": null,
+              "uuid": "cc07af24-7e66-41ad-856e-13abc2d43467"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Records Returned -> Returns No Results",
+              "targetStep": "/api/3/workflow_steps/144564ee-6d51-48c5-83e3-6ae9ddb4ab42",
+              "sourceStep": "/api/3/workflow_steps/bc684a18-5d72-41d0-bf84-2e88c043f8b8",
+              "label": "no",
+              "isExecuted": false,
+              "group": null,
+              "uuid": "81b19a0c-bdd1-42b4-8a4d-b87d77ac00f5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Time Configuration -> Fetch Incident",
+              "targetStep": "/api/3/workflow_steps/5a769187-ab63-4543-bf94-09e44bd10d02",
+              "sourceStep": "/api/3/workflow_steps/192cdea6-e2e4-4b95-b99a-d04fe046c3aa",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "cef1e86f-3ab8-4787-97ca-4084a7b9a7d7"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/b718c9bd-653d-4770-abca-abbbb43dbf11",
+              "sourceStep": "/api/3/workflow_steps/f9f63498-b36b-44e8-9c3d-1c9e38f41d6a",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "863d2490-637f-49f5-aba8-f4534393c607"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "0be9fea7-3c3e-419a-ba67-3a8072ddc4a3",
+          "id": 729,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "fetch",
+            "sekoia-io-xdr"
+          ]
+        },
         {
           "@type": "Workflow",
           "triggerLimit": null,
@@ -26,10 +403,10 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1674799420,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/0553c8dc-9f9d-4406-a084-5eaa4534978e",
+          "triggerStep": "/api/3/workflow_steps/1c15eb38-7106-49b1-b4bb-6e134dc55004",
           "steps": [
             {
               "@type": "WorkflowStep",
@@ -43,7 +420,7 @@
                   "comment": "Sample",
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.1",
+                "version": "1.0.2",
                 "connector": "sekoiaio",
                 "operation": "add_comment_to_alert",
                 "operationTitle": "Add Comment to Alert",
@@ -55,14 +432,14 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
-              "uuid": "028d0041-748b-411f-a9fe-386b031908f6"
+              "uuid": "545b81cf-981b-4363-9b92-27e1b30733b0"
             },
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "ba208879-e2d7-457b-8415-2c1a4bb31cc7",
+                "route": "2351db86-28f0-4796-ad58-9b6696951d3b",
                 "title": "SEKOIA.IO XDR: Add Comment to Alert",
                 "resources": [
                   "alerts"
@@ -83,801 +460,25 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
               "group": null,
-              "uuid": "0553c8dc-9f9d-4406-a084-5eaa4534978e"
+              "uuid": "1c15eb38-7106-49b1-b4bb-6e134dc55004"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
               "name": "Start -> Add Comment to Alert",
-              "targetStep": "/api/3/workflow_steps/028d0041-748b-411f-a9fe-386b031908f6",
-              "sourceStep": "/api/3/workflow_steps/0553c8dc-9f9d-4406-a084-5eaa4534978e",
+              "targetStep": "/api/3/workflow_steps/545b81cf-981b-4363-9b92-27e1b30733b0",
+              "sourceStep": "/api/3/workflow_steps/1c15eb38-7106-49b1-b4bb-6e134dc55004",
               "label": null,
               "isExecuted": false,
-              "uuid": "d53a26fa-6f42-4c0f-956b-fc5fa9f71584"
+              "group": null,
+              "uuid": "2248084c-c2ca-4616-b84f-45c68cf4ce96"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "0019d2f1-d6ca-412a-b0d4-bc5f47781cdc",
-          "id": 3137,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Update Asset",
-          "aliasName": null,
-          "tag": null,
-          "description": "Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674799647,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/225b9012-75de-4c37-810c-2405836533f0",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Update Asset",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "asset_keys": "",
-                  "asset_name": "Asset Name",
-                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
-                  "asset_owners": "",
-                  "asset_criticity": "low",
-                  "asset_type_name": "Asset Type Name",
-                  "asset_type_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
-                  "asset_attributes": "",
-                  "asset_description": ""
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "update_asset",
-                "operationTitle": "Update Asset",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "1ebef289-1559-4a30-89d2-19fc403a23ec"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "01160ef4-dbf1-45ea-9ea9-c8d1ecf7a5cd",
-                "title": "SEKOIA.IO XDR: Update Asset",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "225b9012-75de-4c37-810c-2405836533f0"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Update Asset",
-              "targetStep": "/api/3/workflow_steps/1ebef289-1559-4a30-89d2-19fc403a23ec",
-              "sourceStep": "/api/3/workflow_steps/225b9012-75de-4c37-810c-2405836533f0",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "ac6b29a9-3acb-413b-8dc8-08d42d78b1f8"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "1119f207-1437-448a-a204-5e56b3674568",
-          "id": 3139,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Deny a Countermeasure",
-          "aliasName": null,
-          "tag": null,
-          "description": "Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674800408,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/2cb4571b-9617-4fcc-b237-822ec3039503",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "42019c8c-b57d-4e55-a718-2ccde1e36068",
-                "title": "SEKOIA.IO XDR: Deny a Countermeasure",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "2cb4571b-9617-4fcc-b237-822ec3039503"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Deny a Countermeasure",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "author": "",
-                  "content": "Sample",
-                  "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "deny_countermeasure",
-                "operationTitle": "Deny a Countermeasure",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "be6ee9ce-7374-42bc-af9e-c1058ae1ad7c"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Deny a Countermeasure",
-              "targetStep": "/api/3/workflow_steps/be6ee9ce-7374-42bc-af9e-c1058ae1ad7c",
-              "sourceStep": "/api/3/workflow_steps/2cb4571b-9617-4fcc-b237-822ec3039503",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "5c073509-5a3a-4639-9694-af1b955fa4e9"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "2cf3cedd-2ac6-4816-9bca-e46394719e0b",
-          "id": 3142,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get Events",
-          "aliasName": null,
-          "tag": null,
-          "description": "Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674799092,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/fb8861d9-05b9-4c9f-9dc0-fe2836bac9ac",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Events",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "query": "id:\"ALWyJiGeJSiw\"",
-                  "latest_time": "2023-01-26T18:30:00.000Z",
-                  "earliest_time": "2023-01-24T18:30:00.000Z"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "get_events",
-                "operationTitle": "Get Events",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "3278d957-1103-48c9-b41e-68c4c5b720ee"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "4af34b21-258f-4a1f-8de1-7bf9a682b9b5",
-                "title": "SEKOIA.IO XDR: Get Events",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "fb8861d9-05b9-4c9f-9dc0-fe2836bac9ac"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Events",
-              "targetStep": "/api/3/workflow_steps/3278d957-1103-48c9-b41e-68c4c5b720ee",
-              "sourceStep": "/api/3/workflow_steps/fb8861d9-05b9-4c9f-9dc0-fe2836bac9ac",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "f9f1c6da-832f-43fb-8ebc-7f0607ec96f9"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "3d4208cf-dd0c-4caf-a989-8ef004b7ff8e",
-          "id": 3134,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "List Alerts",
-          "aliasName": null,
-          "tag": null,
-          "description": "Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674799161,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/aafa0ad7-fa98-41ba-8ed6-772af8724fec",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "List Alerts",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                    "creation_start_date": "-7d",
-                    "creation_end_date": "now"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "list_alerts",
-                "operationTitle": "List Alerts",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "9233865c-3599-4e40-96e2-0d3771d9efce"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "b80b671a-e50f-4304-bf20-2e01aa0cde50",
-                "title": "SEKOIA.IO XDR: List Alerts",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "aafa0ad7-fa98-41ba-8ed6-772af8724fec"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> List Alerts",
-              "targetStep": "/api/3/workflow_steps/9233865c-3599-4e40-96e2-0d3771d9efce",
-              "sourceStep": "/api/3/workflow_steps/aafa0ad7-fa98-41ba-8ed6-772af8724fec",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "9893b379-623c-4124-86ae-0c5e43f5f8d8"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "93373c62-c5b1-4991-80a4-ccba679e34af",
-          "id": 3135,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Activate a Countermeasure",
-          "aliasName": null,
-          "tag": null,
-          "description": "Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674800246,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/86139ad3-89d0-4b89-8c98-d47c7feab7b5",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Activate a Countermeasure",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "author": "",
-                  "content": "Sample",
-                  "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "activate_countermeasure",
-                "operationTitle": "Activate a Countermeasure",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "619444db-91bb-401d-ac0a-c190a5d4c2de"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "b2911810-ec9c-4ed3-8539-d90188073e16",
-                "title": "SEKOIA.IO XDR: Activate a Countermeasure",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "86139ad3-89d0-4b89-8c98-d47c7feab7b5"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Activate a Countermeasure",
-              "targetStep": "/api/3/workflow_steps/619444db-91bb-401d-ac0a-c190a5d4c2de",
-              "sourceStep": "/api/3/workflow_steps/86139ad3-89d0-4b89-8c98-d47c7feab7b5",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "8c62c2d7-ad73-4725-841f-45703835f9c9"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "a68ae4f5-a5f2-4543-9fa0-d895fa33a69f",
-          "id": 3141,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Get Asset",
-          "aliasName": null,
-          "tag": null,
-          "description": "Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674799499,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/91a465d1-0f44-48b0-8009-d9a1cebbfcf6",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Asset",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "get_asset",
-                "operationTitle": "Get Asset",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "7a858e24-5427-4284-9203-b749f9215f31"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "8e515190-6009-4dd6-a7b3-c0b5039a1e62",
-                "title": "SEKOIA.IO XDR: Get Asset",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "91a465d1-0f44-48b0-8009-d9a1cebbfcf6"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Get Asset",
-              "targetStep": "/api/3/workflow_steps/7a858e24-5427-4284-9203-b749f9215f31",
-              "sourceStep": "/api/3/workflow_steps/91a465d1-0f44-48b0-8009-d9a1cebbfcf6",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "eeb55d56-dea8-4382-9a8e-a5d9e314702a"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "ed2096df-eb52-45d8-80bf-fe72f0eb082e",
-          "id": 3138,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Update Alert Status",
-          "aliasName": null,
-          "tag": null,
-          "description": "Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674795988,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/1835ed41-b330-4a6f-800b-dfce36e6c1ba",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "6ecabf43-3404-41e3-80e2-0ec0bbc9e5fd",
-                "title": "SEKOIA.IO XDR: Update Alert Status",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "1835ed41-b330-4a6f-800b-dfce36e6c1ba"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Update Alert Status",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "comment": "",
-                  "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
-                  "action_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "update_alert_status",
-                "operationTitle": "Update Alert Status",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "cbe3d6e6-180b-4146-9516-95eb3cb82db3"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Update Alert Status",
-              "targetStep": "/api/3/workflow_steps/cbe3d6e6-180b-4146-9516-95eb3cb82db3",
-              "sourceStep": "/api/3/workflow_steps/1835ed41-b330-4a6f-800b-dfce36e6c1ba",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "780bf527-f2bd-4d7e-b2bd-b1e0969453d5"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "efd9e4f1-7971-4122-ae5b-b78e5e5592bd",
-          "id": 3133,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "SEKOIA.IO",
-            "sekoia-io-xdr"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Delete Asset",
-          "aliasName": null,
-          "tag": null,
-          "description": "Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1674800163,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/87bf29f5-a4d2-4b5d-a82c-7dfca6dcfdf2",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Delete Asset",
-              "description": null,
-              "arguments": {
-                "name": "SEKOIA.IO XDR",
-                "config": "",
-                "params": {
-                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
-                },
-                "version": "1.0.1",
-                "connector": "sekoiaio",
-                "operation": "delete_asset",
-                "operationTitle": "Delete Asset",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "744383fa-29e4-46f7-9cf0-07635c619f3a"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "route": "9d7798c1-6ca0-4e05-b415-851ed3a6e371",
-                "title": "SEKOIA.IO XDR: Delete Asset",
-                "resources": [
-                  "alerts"
-                ],
-                "inputVariables": [],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": "{{vars.input.records}}"
-                  }
-                },
-                "executeButtonText": "Execute",
-                "noRecordExecution": true,
-                "singleRecordExecution": false
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "group": null,
-              "uuid": "87bf29f5-a4d2-4b5d-a82c-7dfca6dcfdf2"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Delete Asset",
-              "targetStep": "/api/3/workflow_steps/744383fa-29e4-46f7-9cf0-07635c619f3a",
-              "sourceStep": "/api/3/workflow_steps/87bf29f5-a4d2-4b5d-a82c-7dfca6dcfdf2",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "8bd1b0ab-5ff4-49bd-b2da-1c6f09ad0a56"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "f5f97812-ca87-49bf-b94e-96caa3c885d4",
-          "id": 3140,
+          "uuid": "3651ce9b-91f4-40e2-b976-dc050ee5ec60",
+          "id": 719,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -900,17 +501,45 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1674799274,
-          "collection": "/api/3/workflow_collections/b1c04225-cbfd-47b8-af5c-e681046772d4",
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/5281fdc3-8024-4653-bb1e-f7ae4169455d",
+          "triggerStep": "/api/3/workflow_steps/454ba43c-1fa3-4429-88b5-adb1b3405cc2",
           "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Alert",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
+                  "include_stix": "",
+                  "include_history": "",
+                  "include_comments": "",
+                  "include_countermeasures": ""
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "get_alert",
+                "operationTitle": "Get Alert",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "3b66fe72-ae42-4b0c-8a48-741b241f0585"
+            },
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "bb81592e-be5c-452c-9a31-708faf99cd74",
+                "route": "10c4a67b-f503-4f43-9280-96316e4329c5",
                 "title": "SEKOIA.IO XDR: Get Alert",
                 "resources": [
                   "alerts"
@@ -931,26 +560,66 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
               "group": null,
-              "uuid": "5281fdc3-8024-4653-bb1e-f7ae4169455d"
-            },
+              "uuid": "454ba43c-1fa3-4429-88b5-adb1b3405cc2"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Alert",
+              "targetStep": "/api/3/workflow_steps/3b66fe72-ae42-4b0c-8a48-741b241f0585",
+              "sourceStep": "/api/3/workflow_steps/454ba43c-1fa3-4429-88b5-adb1b3405cc2",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "e7771207-40c9-4c62-8ddf-80e2ca4cbf4c"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "373b382a-d0d4-4f02-9906-da45db243429",
+          "id": 728,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Delete Asset",
+          "aliasName": null,
+          "tag": null,
+          "description": "Delete an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/486edae0-788a-4842-8ec0-6bc5314d961f",
+          "steps": [
             {
               "@type": "WorkflowStep",
-              "name": "Get Alert",
+              "name": "Delete Asset",
               "description": null,
               "arguments": {
                 "name": "SEKOIA.IO XDR",
                 "config": "",
                 "params": {
-                  "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
-                  "include_stix": "",
-                  "include_history": "",
-                  "include_comments": "",
-                  "include_countermeasures": ""
+                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.1",
+                "version": "1.0.2",
                 "connector": "sekoiaio",
-                "operation": "get_alert",
-                "operationTitle": "Get Alert",
+                "operation": "delete_asset",
+                "operationTitle": "Delete Asset",
                 "pickFromTenant": false,
                 "step_variables": []
               },
@@ -959,24 +628,972 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
-              "uuid": "548476a7-3213-4945-b1c7-8c5ad02c7277"
+              "uuid": "f3e410f8-72d0-497b-b3e5-625a7d9bcf9e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "42b9b27b-6953-42d1-88ae-24cea625d2cc",
+                "title": "SEKOIA.IO XDR: Delete Asset",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "486edae0-788a-4842-8ec0-6bc5314d961f"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Get Alert",
-              "targetStep": "/api/3/workflow_steps/548476a7-3213-4945-b1c7-8c5ad02c7277",
-              "sourceStep": "/api/3/workflow_steps/5281fdc3-8024-4653-bb1e-f7ae4169455d",
+              "name": "Start -> Delete Asset",
+              "targetStep": "/api/3/workflow_steps/f3e410f8-72d0-497b-b3e5-625a7d9bcf9e",
+              "sourceStep": "/api/3/workflow_steps/486edae0-788a-4842-8ec0-6bc5314d961f",
               "label": null,
               "isExecuted": false,
-              "uuid": "a8e9e8ee-2087-4edd-b470-d46974bb410e"
+              "group": null,
+              "uuid": "17c12e89-c6d9-46a6-bb1d-20f12fd2ee40"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "f9a01e07-4bba-428e-88c6-e94a541e3167",
-          "id": 3136,
+          "uuid": "7ea3aff5-a0f3-4325-90cd-df384d2dfcba",
+          "id": 727,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Update Asset",
+          "aliasName": null,
+          "tag": null,
+          "description": "Updates a specific asset in SEKOIA.IO XDR based on the asset uuid, asset type uuid, asset type name, and other input parameters that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/5290d05e-3eb2-407b-ab35-81901bb034e5",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "db8b8b9b-3a6d-4be3-9ecb-03f7022c7515",
+                "title": "SEKOIA.IO XDR: Update Asset",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "5290d05e-3eb2-407b-ab35-81901bb034e5"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Asset",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "asset_keys": "",
+                  "asset_name": "Asset Name",
+                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
+                  "asset_owners": "",
+                  "asset_criticity": "low",
+                  "asset_type_name": "Asset Type Name",
+                  "asset_type_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
+                  "asset_attributes": "",
+                  "asset_description": ""
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "update_asset",
+                "operationTitle": "Update Asset",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "c6aa2c81-5257-4b3d-be08-9aa34b664cbb"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Update Asset",
+              "targetStep": "/api/3/workflow_steps/c6aa2c81-5257-4b3d-be08-9aa34b664cbb",
+              "sourceStep": "/api/3/workflow_steps/5290d05e-3eb2-407b-ab35-81901bb034e5",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "40ff52b8-8e46-4c44-ad60-c1ebd6eb2f44"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "84013e92-7129-4bbd-84da-b44d9509f93a",
+          "id": 720,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Asset",
+          "aliasName": null,
+          "tag": null,
+          "description": "Retrieves an specific asset from SEKOIA.IO XDR based on the asset uuid you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/950ea72e-d492-4aab-bcc2-4cbb52164239",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Asset",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "get_asset",
+                "operationTitle": "Get Asset",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "873d5ae1-47da-46b9-a329-f38ab71747ef"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "6d0ceeb4-c27b-4f6c-bd27-9b067b218b6e",
+                "title": "SEKOIA.IO XDR: Get Asset",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "950ea72e-d492-4aab-bcc2-4cbb52164239"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Asset",
+              "targetStep": "/api/3/workflow_steps/873d5ae1-47da-46b9-a329-f38ab71747ef",
+              "sourceStep": "/api/3/workflow_steps/950ea72e-d492-4aab-bcc2-4cbb52164239",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "2b8bb1f7-cd63-4e7f-a230-d9b9cd2bf520"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "89873bbd-402f-4353-a199-545ee188f97c",
+          "id": 725,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Update Alert Status",
+          "aliasName": null,
+          "tag": null,
+          "description": "Updates a specific alert in SEKOIA.IO XDR based on the alert identifier and other input parameters that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/175114d9-ad5f-4a9f-8be5-b7c0e6983a2c",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "76b4f6d7-3ca5-4c65-a516-bbc1fc8f955a",
+                "title": "SEKOIA.IO XDR: Update Alert Status",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "175114d9-ad5f-4a9f-8be5-b7c0e6983a2c"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Alert Status",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "comment": "",
+                  "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
+                  "action_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "update_alert_status",
+                "operationTitle": "Update Alert Status",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "23b3b20a-c8f8-4634-8e2d-d2b9bb413750"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Update Alert Status",
+              "targetStep": "/api/3/workflow_steps/23b3b20a-c8f8-4634-8e2d-d2b9bb413750",
+              "sourceStep": "/api/3/workflow_steps/175114d9-ad5f-4a9f-8be5-b7c0e6983a2c",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "8d0f2d2f-0ef9-44f8-ba43-dd4a655bf900"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "8a39725c-22da-4e6d-a923-b2c47116b791",
+          "id": 726,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Sekoia.io> Ingest",
+          "aliasName": null,
+          "tag": "#fortinet-fortisiem #ingest #dataingestion #create",
+          "description": "This playbook demonstrate the list incident operation.",
+          "isActive": true,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771432,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/ce47a198-5cb4-4e54-9d10-52a3e51a7185",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "event_count": "{{ vars.result.event_count }}",
+                "tenant_name": "{{vars.result.tenant_mapping | default({})}}",
+                "alerts_type_map": "{}",
+                "alerts_state_map": "{}",
+                "SekoiaIOMacroName": "{{vars.result.SekoiaIOMacroName}}",
+                "alert_source_data": "{{ vars.result.data }}",
+                "alerts_status_map": "{}",
+                "alerts_severity_map": "{'Low': {{'Severity'| picklist('Low') }}, 'Moderate': {{'Severity'| picklist('Medium') }}, 'Major': {{'Severity'| picklist('High') }}}"
+              },
+              "status": null,
+              "top": "306",
+              "left": "413",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "42d2ad45-7940-4e6e-bda6-7115051ae279"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Record",
+              "description": null,
+              "arguments": {
+                "when": "{{vars.alert_source_data| length > 0}}",
+                "for_each": {
+                  "item": "{{vars.alert_source_data}}",
+                  "__bulk": true,
+                  "parallel": false,
+                  "condition": "",
+                  "batch_size": 100
+                },
+                "resource": {
+                  "name": "{{vars.item.title}}",
+                  "type": "/api/3/picklists/574a6ee2-7265-4701-815e-cff83b053bce",
+                  "state": "/api/3/picklists/a1bac09b-1441-45aa-ad1b-c88744e48e72",
+                  "source": "Sekoia IO XDR",
+                  "status": "/api/3/picklists/7de816ff-7140-4ee5-bd05-93ce22002146",
+                  "severity": "{{vars.item.urgency.display | resolveRange(vars.alerts_severity_map)}}",
+                  "sourceId": "{{vars.item.uuid}}",
+                  "sourceIp": "{{vars.item.source|ipaddr}}",
+                  "__replace": "true",
+                  "eventTime": "{{vars.item.first_seen_at}}",
+                  "sourcedata": "{{vars.item | toJSON}}",
+                  "description": "{{vars.item.details}}",
+                  "ackSlaStatus": "/api/3/picklists/72979f64-e8b9-4888-a965-957e0ec24818",
+                  "computerName": "{{vars.item.source}}",
+                  "respSlaStatus": "/api/3/picklists/72979f64-e8b9-4888-a965-957e0ec24818",
+                  "priorityWeight": 1,
+                  "escalatedtoincident": "/api/3/picklists/2128a09c-153d-4db3-985d-de6be33deae5",
+                  "resolvedAutomatedly": false,
+                  "alertRemainingAckSLA": 0
+                },
+                "_showJson": true,
+                "operation": "Overwrite",
+                "collection": "/api/3/upsert/alerts",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "440",
+              "left": "620",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "group": null,
+              "uuid": "90e2cb24-4901-43f8-bef4-48e383245359"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "List Incident",
+              "description": null,
+              "arguments": {
+                "arguments": [],
+                "apply_async": false,
+                "step_variables": [],
+                "pass_parent_env": false,
+                "pass_input_record": false,
+                "workflowReference": "/api/3/workflows/0be9fea7-3c3e-419a-ba67-3a8072ddc4a3"
+              },
+              "status": null,
+              "top": "166",
+              "left": "220",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "group": null,
+              "uuid": "8af4a3ff-a34a-4df4-ac4d-069d1551d4e2"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "64785114-f7e4-4eed-9199-1a70998005d0",
+                "title": "FortiSIEM > Ingest",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  },
+                  "incidents": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "40",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "ce47a198-5cb4-4e54-9d10-52a3e51a7185"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Last Alert Pull Time",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "macro": "{{vars.SekoiaIOMacroName}}",
+                  "value": "{{vars.steps.List_Incident.current_time}}"
+                },
+                "version": "3.2.3",
+                "connector": "cyops_utilities",
+                "operation": "updatemacro",
+                "operationTitle": "FSR: Update Global Variables",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "560",
+              "left": "820",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "9f5fcb6f-8e70-43f8-8948-6992728b6dd3"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Create Record",
+              "targetStep": "/api/3/workflow_steps/90e2cb24-4901-43f8-bef4-48e383245359",
+              "sourceStep": "/api/3/workflow_steps/42d2ad45-7940-4e6e-bda6-7115051ae279",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "7e4b99fe-cee3-4dca-89b3-49b1632f98c9"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create Record -> Update Last Alert Pull Time",
+              "targetStep": "/api/3/workflow_steps/9f5fcb6f-8e70-43f8-8948-6992728b6dd3",
+              "sourceStep": "/api/3/workflow_steps/90e2cb24-4901-43f8-bef4-48e383245359",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "172bccf4-252c-492f-8411-5f3912fed41f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "List Incident -> Config",
+              "targetStep": "/api/3/workflow_steps/42d2ad45-7940-4e6e-bda6-7115051ae279",
+              "sourceStep": "/api/3/workflow_steps/8af4a3ff-a34a-4df4-ac4d-069d1551d4e2",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "9d75d6e9-7412-4bcc-b37f-569ccaef8cb5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> List Incident",
+              "targetStep": "/api/3/workflow_steps/8af4a3ff-a34a-4df4-ac4d-069d1551d4e2",
+              "sourceStep": "/api/3/workflow_steps/ce47a198-5cb4-4e54-9d10-52a3e51a7185",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "24e759bb-6b10-493b-b375-b77972073cfb"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "95c1d59e-a97f-484d-9cc7-617dc7809b54",
+          "id": 730,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "create",
+            "dataingestion",
+            "ingest",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Deny a Countermeasure",
+          "aliasName": null,
+          "tag": null,
+          "description": "Deny a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/7a584eb8-c5f1-4b3d-8e6b-ab227a75e7a2",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Deny a Countermeasure",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "author": "",
+                  "content": "Sample",
+                  "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "deny_countermeasure",
+                "operationTitle": "Deny a Countermeasure",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "89ddfbae-819a-4d66-95fc-c4e2c6053e67"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "0f1e0e88-d112-4342-971a-af817d71287d",
+                "title": "SEKOIA.IO XDR: Deny a Countermeasure",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "7a584eb8-c5f1-4b3d-8e6b-ab227a75e7a2"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Deny a Countermeasure",
+              "targetStep": "/api/3/workflow_steps/89ddfbae-819a-4d66-95fc-c4e2c6053e67",
+              "sourceStep": "/api/3/workflow_steps/7a584eb8-c5f1-4b3d-8e6b-ab227a75e7a2",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "b75d2027-5eab-43f5-8477-6e7055b029ae"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "b59bde74-78a7-438c-b612-0be3ce0fe188",
+          "id": 721,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Events",
+          "aliasName": null,
+          "tag": null,
+          "description": "Search events according the query from SEKOIA.IO XDR based on the query, earliest time, and latest time you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/57da2edc-b30d-46f8-85d7-5ca74cda7ba6",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Events",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "query": "id:\"ALWyJiGeJSiw\"",
+                  "latest_time": "2023-01-26T18:30:00.000Z",
+                  "earliest_time": "2023-01-24T18:30:00.000Z"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "get_events",
+                "operationTitle": "Get Events",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "d992d88d-c252-4ca2-830c-590ea34444fe"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "aa86cf11-5154-4d9f-bfee-8bcee7031ca2",
+                "title": "SEKOIA.IO XDR: Get Events",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "57da2edc-b30d-46f8-85d7-5ca74cda7ba6"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Get Events",
+              "targetStep": "/api/3/workflow_steps/d992d88d-c252-4ca2-830c-590ea34444fe",
+              "sourceStep": "/api/3/workflow_steps/57da2edc-b30d-46f8-85d7-5ca74cda7ba6",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "b0f0d734-8bf3-4650-9947-51c9c0e67bf9"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "e3de0aac-65ce-4230-a6aa-53afa333744e",
+          "id": 722,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "List Alerts",
+          "aliasName": null,
+          "tag": null,
+          "description": "Retrieves all alerts from SEKOIA.IO XDR based on the input parameters that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/d4996341-179c-4652-97fd-6dff4f244285",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "List Alerts",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "creation_end_date": "now",
+                  "creation_start_date": "-7d"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "list_alerts",
+                "operationTitle": "List Alerts",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "737a99b4-648d-4907-8e98-bab457234a1f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "25edd1e8-3a79-4ff0-9f77-0388ace6b92e",
+                "title": "SEKOIA.IO XDR: List Alerts",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "d4996341-179c-4652-97fd-6dff4f244285"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> List Alerts",
+              "targetStep": "/api/3/workflow_steps/737a99b4-648d-4907-8e98-bab457234a1f",
+              "sourceStep": "/api/3/workflow_steps/d4996341-179c-4652-97fd-6dff4f244285",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "76738f1d-de56-465c-bc6e-497fa1a7f1f2"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "e9c168c5-7bc3-4282-95ff-478c1e5e3901",
+          "id": 723,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "SEKOIA.IO",
+            "sekoia-io-xdr"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Activate a Countermeasure",
+          "aliasName": null,
+          "tag": null,
+          "description": "Activate a countermeasure in SEKOIA.IO XDR based on the countermeasure uuid, comment and other input parameters that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1689771406,
+          "collection": "/api/3/workflow_collections/efc0cb24-2e34-4f4f-b758-e3309ef24230",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/17c62b04-e5dc-41fb-97f0-dab3186ef744",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Activate a Countermeasure",
+              "description": null,
+              "arguments": {
+                "name": "SEKOIA.IO XDR",
+                "config": "",
+                "params": {
+                  "author": "",
+                  "content": "Sample",
+                  "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
+                },
+                "version": "1.0.2",
+                "connector": "sekoiaio",
+                "operation": "activate_countermeasure",
+                "operationTitle": "Activate a Countermeasure",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "26ee1621-59de-435e-b871-4d83a36aaf8c"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "bc7a51a9-e6a3-4c1e-bfe2-08a8bccdc968",
+                "title": "SEKOIA.IO XDR: Activate a Countermeasure",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "17c62b04-e5dc-41fb-97f0-dab3186ef744"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Activate a Countermeasure",
+              "targetStep": "/api/3/workflow_steps/26ee1621-59de-435e-b871-4d83a36aaf8c",
+              "sourceStep": "/api/3/workflow_steps/17c62b04-e5dc-41fb-97f0-dab3186ef744",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "a67ff113-b327-43a1-8b29-1d37b14bf94e"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "f3118277-7a9a-42b8-9d81-246014f90152",
+          "id": 724,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -990,6 +1607,11 @@
     }
   ],
   "exported_tags": [
-    "sekoiaio"
+    "dataingestion",
+    "fetch",
+    "sekoia-io-xdr",
+    "SEKOIA.IO",
+    "create",
+    "ingest"
   ]
 }
