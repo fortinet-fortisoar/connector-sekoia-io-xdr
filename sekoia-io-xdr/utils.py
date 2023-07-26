@@ -1,6 +1,7 @@
 import time
+import logging
 from urllib.parse import urljoin
-
+from requests_toolbelt.utils import dump
 import requests
 from requests import Response, Session, Timeout
 from requests.adapters import HTTPAdapter
@@ -14,11 +15,11 @@ from tenacity import (
 )
 from urllib3.util.retry import Retry
 
-from connectors.core.connector import get_logger
+from connectors.core.connector import get_logger, ConnectorError
 from .constants import BASE_URL, INTEGRATION_NAME
 
 logger = get_logger("sekoia-io-xdr")
-
+#logger.setLevel(logging.DEBUG) # Uncomment for connector specific debug
 
 class GenericAPIAction:
     def __init__(self, config, verb: str, url: str, timeout: int = 5, **kwargs):
@@ -65,13 +66,16 @@ class GenericAPIAction:
                         timeout=self._timeout,
                         **self.request_kwargs,
                     )
+                    logger.debug('\n{}\n'.format(dump.dump_all(response).decode('utf-8')))
+
         except RetryError:
             self.log_timeout_error()
             return None
 
         if not response.ok:
             self.log_request_error(response)
-            return None
+            raise ConnectorError(response.text)
+
 
         return response.json()
 
@@ -83,7 +87,7 @@ class Client:
         self._headers = headers
         self.verify = verify
         self.proxy = proxy
-        self.url = urljoin(BASE_URL, "/v1/apiauth/auth/validate")
+        self.url = urljoin(BASE_URL, "/v1/auth/validate")
 
     def get_validate_resource(self) -> str:
         """

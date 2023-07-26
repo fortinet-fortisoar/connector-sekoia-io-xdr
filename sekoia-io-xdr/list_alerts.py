@@ -14,6 +14,11 @@ def list_alerts(config, params):
     else:
         created_at = None
 
+    if params.get("updated_start_date") or params.get("updated_end_date"):
+        updated_at = f"{params['updated_start_date'] or ''},{params['updated_end_date'] or ''}"
+    else:
+        updated_at = None        
+
     payload: dict = {
         "match[status_uuid]": params.get("status_uuid"),
         "match[status_name]": params.get("status_name"),
@@ -21,6 +26,9 @@ def list_alerts(config, params):
         "match[rule_uuid]": params.get("rule_uuid"),
         "match[rule_name]": params.get("rule_name"),
         "date[created_at]": created_at,
+        "date[updated_at]": updated_at,
+        "offset": params.get("offset") or "0",
+        "limit": params.get("limit") or "100",
     }
 
     try:
