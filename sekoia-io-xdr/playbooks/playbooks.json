@@ -3,7 +3,7 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - SEKOIA.IO XDR - 1.0.2",
+      "name": "Sample - SEKOIA.IO XDR - 1.1.0",
       "description": "Sample playbooks for \"SEKOIA.IO XDR\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
       "image": "",
@@ -70,7 +70,7 @@
               "description": null,
               "arguments": {
                 "name": "SEKOIA.IO XDR",
-                "config": "299a13b9-c0e0-43f5-bad3-a4f121167b14",
+                "config": "",
                 "params": {
                   "limit": 1,
                   "offset": 0,
@@ -84,7 +84,7 @@
                   "updated_start_date": "",
                   "creation_start_date": "{{vars.last_pull_time}}"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoia-io-xdr",
                 "operation": "list_alerts",
                 "operationTitle": "List Alerts",
@@ -105,7 +105,7 @@
               "arguments": {
                 "name": "SEKOIA.IO XDR",
                 "when": "{{vars.pages | length > 0}}",
-                "config": "299a13b9-c0e0-43f5-bad3-a4f121167b14",
+                "config": "",
                 "params": {
                   "limit": "{{vars.records_per_page}}",
                   "offset": "{{vars.item}}",
@@ -119,7 +119,7 @@
                   "updated_start_date": "",
                   "creation_start_date": "{{vars.last_pull_time}}"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "for_each": {
                   "item": "{{vars.pages}}",
                   "parallel": false,
@@ -420,7 +420,7 @@
                   "comment": "Sample",
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "add_comment_to_alert",
                 "operationTitle": "Add Comment to Alert",
@@ -520,7 +520,7 @@
                   "include_comments": "",
                   "include_countermeasures": ""
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "get_alert",
                 "operationTitle": "Get Alert",
@@ -616,7 +616,7 @@
                 "params": {
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "delete_asset",
                 "operationTitle": "Delete Asset",
@@ -748,7 +748,7 @@
                   "asset_attributes": "",
                   "asset_description": ""
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "update_asset",
                 "operationTitle": "Update Asset",
@@ -816,7 +816,7 @@
                 "params": {
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "get_asset",
                 "operationTitle": "Get Asset",
@@ -942,7 +942,7 @@
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f",
                   "action_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "update_alert_status",
                 "operationTitle": "Update Alert Status",
@@ -1242,7 +1242,7 @@
                   "content": "Sample",
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "deny_countermeasure",
                 "operationTitle": "Deny a Countermeasure",
@@ -1340,7 +1340,7 @@
                   "latest_time": "2023-01-26T18:30:00.000Z",
                   "earliest_time": "2023-01-24T18:30:00.000Z"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "get_events",
                 "operationTitle": "Get Events",
@@ -1437,7 +1437,7 @@
                   "creation_end_date": "now",
                   "creation_start_date": "-7d"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "list_alerts",
                 "operationTitle": "List Alerts",
@@ -1535,7 +1535,7 @@
                   "content": "Sample",
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
-                "version": "1.0.2",
+                "version": "1.1.0",
                 "connector": "sekoiaio",
                 "operation": "activate_countermeasure",
                 "operationTitle": "Activate a Countermeasure",

@@ -17,7 +17,7 @@ def list_alerts(config, params):
     if params.get("updated_start_date") or params.get("updated_end_date"):
         updated_at = f"{params['updated_start_date'] or ''},{params['updated_end_date'] or ''}"
     else:
-        updated_at = None        
+        updated_at = None
 
     payload: dict = {
         "match[status_uuid]": params.get("status_uuid"),
