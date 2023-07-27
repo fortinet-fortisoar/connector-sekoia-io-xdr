@@ -222,12 +222,33 @@ The `Sample - sekoia-io-xdr - 1.1.0` playbook collection comes bundled with the 
 
 ## Data Ingestion Support
 
-Use the Data Ingestion Wizard to easily ingest data into FortiSOAR&trade; by pulling events/alerts/incidents, based on the requirement.
+Use the Data Ingestion Wizard to easily ingest data into FortiSOAR™ by pulling alerts from Sekoia.io XDR. Currently, "alerts" in Sekoia.io XDR are mapped to "alerts" in FortiSOAR™. For more information on the Data Ingestion Wizard, see the "Connectors Guide" in the FortiSOAR™ product documentation. 
+
+Configure Data Ingestion
+You can configure data ingestion using the “Data Ingestion Wizard” to seamlessly map the incoming Sekoia.io XDR "Alerts" to FortiSOAR™ "Alerts".
+
+The Data Ingestion Wizard enables you to configure scheduled pulling of data from Sekoia.io XDR into FortiSOAR™. It also lets you pull some sample data from Sekoia.io XDR using which you can define the mapping of data between Sekoia.io XDR and FortiSOAR™. The mapping of common fields is generally already done by the Data Ingestion Wizard; users mostly require to only map any custom fields that are added to the Sekoia.io XDR alerts. 
+
+1.   To begin configuring data ingestion, click Configure Data Ingestion on the Sekoia.io XDR connector’s "Configurations" page. 
+Click Let’s Start by fetching some data, to open the “Fetch Sample Data” screen.
 
 ![](media/start.png)
 
+Sample data is required to create a field mapping between the Sekoia.io XDR alert data and FortiSOAR™. The sample data is pulled from connector actions or ingestion playbooks.
+2.  On the Fetch Data screen, provide the configurations required to fetch alerts from Sekoia.io XDR. You can specify the pull alerts created in past X minutes, status, and number of alerts to fetch. The fetched data is used to create a mapping between the Sekoia.io XDR data and FortiSOAR™ incidents. 
+
 ![](media/fetch.png)
+
+Once you have completed specifying the configurations, click Fetch Data.
+3.  On the Field Mapping screen, map the fields of a the Sekoia.io XDR alert to the fields of an Sekoia.io XDR present in FortiSOAR™. To map a field, click the key in the sample data to add the “jinja” value of the field. For example, to map the title parameter of a Sekoia.io XDR alert to the Name parameter of a FortiSOAR™ alert, click the Severity field and then click the alert Severity field to populate its keys: 
 
 ![](media/mapping.png)
 
+For more information on field mapping, see the Data Ingestion chapter in the "Connectors Guide" in the FortiSOAR™ product documentation. Once you have completed mapping fields, click Save Mapping & Continue.
+4.  Use the Scheduling screen to configure schedule-based ingestion, i.e., specify the polling frequency to Sekoia.io XDR, so that the content gets pulled from Sekoia.io XDR integration into FortiSOAR™. On the Scheduling screen, from the Do you want to schedule the ingestion? drop-down list, select Yes. In the “Configure Schedule Settings” section, specify the Cron expression for the schedule. For example, if you want to pull data from Sekoia.io XDR every 5 minutes, click Every X Minute, and in the minute box enter */5. This would mean that based on the configuration you have set up, data, i.e., alerts will be pulled from Sekoia.io XDR every 5 minutes.
+
+
 ![](media/scheduling.png)
+
+Once you have completed scheduling, click Save Settings & Continue.
+5.  The Summary screen displays a summary of the mapping done, and it also contains links to the Ingestion playbooks. Click Done to complete the data ingestion and exit the Data Ingestion Wizard.
