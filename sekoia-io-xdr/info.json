@@ -5,12 +5,16 @@
   "publisher": "SEKOIA.IO",
   "cs_approved": false,
   "cs_compatible": true,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "category": "Analytics & SIEM",
-  "help_online": "https://github.com/fortinet-fortisoar/connector-sekoia-io-xdr/blob/release/1.0.1/docs/SekoiaioXDR.md",
+  "help_online": "https://github.com/fortinet-fortisoar/connector-sekoia-io-xdr/blob/release/1.1.0/docs/SekoiaioXDR.md",
   "icon_large_name": "large.png",
   "icon_medium_name": "medium.png",
   "icon_small_name": "small.png",
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "ingestion_supported": true,
   "configuration": {
     "fields": [
       {
@@ -136,21 +140,65 @@
         },
         {
           "title": "Creation Start Date",
+          "tooltip": "Time in ISO format (rfc3339)",
           "name": "creation_start_date",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "text",
-          "description": "Filter alerts according to their first creation date"
+          "description": "Filter alerts according to their first creation date. Time in ISO format (rfc3339)"
         },
         {
           "title": "Creation End Date",
+          "tooltip": "Time in ISO format (rfc3339)",
           "name": "creation_end_date",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "text",
-          "description": "Filter alerts according to their last creation date"
+          "description": "Filter alerts according to their last creation date. Time in ISO format (rfc3339)"
+        },
+        {
+          "description": "Filter alerts according to their first updation date. Time in ISO format (rfc3339)",
+          "editable": true,
+          "name": "updated_start_date",
+          "required": false,
+          "title": "Updated Start Date",
+          "tooltip": "Time in ISO format (rfc3339)",
+          "type": "datetime",
+          "visible": true
+        },
+        {
+          "description": "Filter alerts according to their last updation date. Time in ISO format (rfc3339)",
+          "editable": true,
+          "name": "updated_end_date",
+          "required": false,
+          "title": "Updated End Date",
+          "tooltip": "Time in ISO format (rfc3339)",
+          "type": "datetime",
+          "visible": true
+        },
+        {
+          "description": "A number of records to skip, default is 0",
+          "editable": true,
+          "name": "offset",
+          "required": false,
+          "title": "Records Offset",
+          "tooltip": "A number of records to skip, default is 0",
+          "type": "integer",
+          "value": 0,
+          "visible": true
+        },
+        {
+          "description": "Number of records to return per call",
+          "editable": true,
+          "name": "limit",
+          "required": false,
+          "title": "Records Per Page",
+          "tooltip": "Number of records to return per call",
+          "type": "integer",
+          "value": 100,
+          "visible": true
         }
       ],
       "output_schema": {}
@@ -455,7 +503,7 @@
           "description": "The author of the comment to associate to the countermeasure"
         }
       ],
-       "output_schema": {}
+      "output_schema": {}
     },
     {
       "operation": "deny_countermeasure",
@@ -493,7 +541,7 @@
           "description": "The author of the comment to associate to the countermeasure"
         }
       ],
-       "output_schema": {}
+      "output_schema": {}
     }
   ]
 }
