@@ -19,7 +19,9 @@ from connectors.core.connector import get_logger, ConnectorError
 from .constants import BASE_URL, INTEGRATION_NAME
 
 logger = get_logger("sekoia-io-xdr")
-#logger.setLevel(logging.DEBUG) # Uncomment for connector specific debug
+
+
+# logger.setLevel(logging.DEBUG) # Uncomment for connector specific debug
 
 class GenericAPIAction:
     def __init__(self, config, verb: str, url: str, timeout: int = 5, **kwargs):
@@ -54,9 +56,9 @@ class GenericAPIAction:
     def run(self):
         try:
             for attempt in Retrying(
-                stop=stop_after_attempt(5),
-                wait=wait_exponential(multiplier=2, min=1, max=10),
-                retry=retry_if_exception_type(Timeout),
+                    stop=stop_after_attempt(5),
+                    wait=wait_exponential(multiplier=2, min=1, max=10),
+                    retry=retry_if_exception_type(Timeout),
             ):
                 with attempt:
                     response: Response = requests.request(
@@ -75,7 +77,6 @@ class GenericAPIAction:
         if not response.ok:
             self.log_request_error(response)
             raise ConnectorError(response.text)
-
 
         return response.json()
 
@@ -98,8 +99,8 @@ class Client:
         )
 
         if (
-            "message" in response.json()
-            and response.json()["message"] == "The token is invalid"
+                "message" in response.json()
+                and response.json()["message"] == "The token is invalid"
         ):
             raise Exception(
                 f"{INTEGRATION_NAME} error: the request failed due to: {response}"
@@ -136,7 +137,7 @@ class BaseGetEvents:
         return self.http_session
 
     def trigger_event_search_job(
-        self, query: str, earliest_time: str, latest_time: str
+            self, query: str, earliest_time: str, latest_time: str
     ) -> str:
         response_start = self.http_session.post(
             f"{self.events_api_path}/search/jobs",
