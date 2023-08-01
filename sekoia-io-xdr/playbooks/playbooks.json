@@ -421,7 +421,7 @@
                   "alert_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "add_comment_to_alert",
                 "operationTitle": "Add Comment to Alert",
                 "pickFromTenant": false,
@@ -521,7 +521,7 @@
                   "include_countermeasures": ""
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "get_alert",
                 "operationTitle": "Get Alert",
                 "pickFromTenant": false,
@@ -617,7 +617,7 @@
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "delete_asset",
                 "operationTitle": "Delete Asset",
                 "pickFromTenant": false,
@@ -749,7 +749,7 @@
                   "asset_description": ""
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "update_asset",
                 "operationTitle": "Update Asset",
                 "pickFromTenant": false,
@@ -817,7 +817,7 @@
                   "asset_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "get_asset",
                 "operationTitle": "Get Asset",
                 "pickFromTenant": false,
@@ -943,7 +943,7 @@
                   "action_uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "update_alert_status",
                 "operationTitle": "Update Alert Status",
                 "pickFromTenant": false,
@@ -1243,7 +1243,7 @@
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "deny_countermeasure",
                 "operationTitle": "Deny a Countermeasure",
                 "pickFromTenant": false,
@@ -1341,7 +1341,7 @@
                   "earliest_time": "2023-01-24T18:30:00.000Z"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "get_events",
                 "operationTitle": "Get Events",
                 "pickFromTenant": false,
@@ -1438,7 +1438,7 @@
                   "creation_start_date": "-7d"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "list_alerts",
                 "operationTitle": "List Alerts",
                 "pickFromTenant": false,
@@ -1536,7 +1536,7 @@
                   "countermeasure_uuid": "cd2fe256-8ee0-4fcf-b255-cbc237a49ab9"
                 },
                 "version": "1.1.0",
-                "connector": "sekoiaio",
+                "connector": "sekoia-io-xdr",
                 "operation": "activate_countermeasure",
                 "operationTitle": "Activate a Countermeasure",
                 "pickFromTenant": false,
